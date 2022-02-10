@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import { SYS_API } from '/@/api/constant';
 
 export interface SysUser {
 	id: number;// id
@@ -22,7 +23,7 @@ export interface SysUsersRoles {
  * @returns 返回接口数据
  */
 export function selectPage(params: object) {
-	return request.post('/sysUser/page', { ...params, searchCount: true });
+	return request.post(SYS_API + '/sysUser/page', { ...params, searchCount: true });
 }
 
 /**
@@ -31,7 +32,7 @@ export function selectPage(params: object) {
  * @returns 返回用户详情
  */
 export function selectById(id: number) {
-	return request.get('/sysUser?id=' + id);
+	return request.get(SYS_API + '/sysUser?id=' + id);
 }
 
 /**
@@ -40,7 +41,7 @@ export function selectById(id: number) {
  * @returns 用户信息
  */
 export function add(user: object) {
-	return request.post('/sysUser', user);
+	return request.post(SYS_API + '/sysUser', user);
 }
 
 /**
@@ -49,7 +50,7 @@ export function add(user: object) {
  * @returns 修改数量
  */
 export function update(user: object) {
-	return request.put('/sysUser', user);
+	return request.put(SYS_API + '/sysUser', user);
 }
 
 /**
@@ -58,7 +59,7 @@ export function update(user: object) {
  * @returns 修改数量
  */
 export function deleteById(id: number) {
-	return request.delete('/sysUser', { data: { id } });
+	return request.delete(SYS_API + '/sysUser', { data: { id } });
 }
 
 
@@ -68,7 +69,7 @@ export function deleteById(id: number) {
  * @returns 返回角色id数组
  */
  export function roleByUserId(id: number) {
-	return request.get('/sysUser/roleByUserId?id=' + id);
+	return request.get(SYS_API + '/sysUser/roleByUserId?id=' + id);
 }
 
 /**
@@ -76,7 +77,7 @@ export function deleteById(id: number) {
  * @param userRole 用户角色关系
  */
 export function bind(userRole: SysUsersRoles) {
-	return request.post('/sysUser/bindRole', userRole);
+	return request.post(SYS_API + '/sysUser/bindRole', userRole);
 }
 
 /**
@@ -84,5 +85,5 @@ export function bind(userRole: SysUsersRoles) {
  * @param userRole 用户角色关系
  */
 export function unBind(userRole: SysUsersRoles) {
-	return request.post('/sysUser/unBindRole', userRole);
+	return request.post(SYS_API + '/sysUser/unBindRole', userRole);
 }

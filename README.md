@@ -4,10 +4,10 @@
 
 ```bash
 # 克隆项目
-git clone https://gitee.com/realmadridlf/f-vue-admin.git
+git clone https://gitee.com/realmadridlf/f-vue-cloud.git
 
 # 进入项目
-cd f-vue-admin
+cd f-vue-cloud
 
 # 安装依赖
 cnpm install

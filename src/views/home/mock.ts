@@ -72,7 +72,7 @@ export const activitiesList = [
 		time1: '今天',
 		time2: '12:20:30',
 		title: '更名',
-		label: '正式更名为 f-vue-admin',
+		label: '正式更名为 f-vue-cloud',
 	},
 	{
 		time1: '02-17',

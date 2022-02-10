@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import { SYS_API } from '/@/api/constant';
 
 /**
  * 查询菜单
@@ -6,7 +7,7 @@ import request from '/@/utils/request';
  * @returns 返回接口数据
  */
  export function getMenu(type: number | null) {
-	return request.get('/sysMenu/tree', { params: { type } });
+	 return request.get(SYS_API + '/sysMenu/tree', { params: { type } });
 }
 
 /**
@@ -15,7 +16,7 @@ import request from '/@/utils/request';
  * @returns 用户信息
  */
  export function add(user: object) {
-	return request.post('/sysMenu', user);
+	return request.post(SYS_API + '/sysMenu', user);
 }
 
 /**
@@ -24,7 +25,7 @@ import request from '/@/utils/request';
  * @returns 修改数量
  */
 export function update(user: object) {
-	return request.put('/sysMenu', user);
+	return request.put(SYS_API + '/sysMenu', user);
 }
 
 /**
@@ -33,5 +34,5 @@ export function update(user: object) {
  * @returns 修改数量
  */
 export function deleteById(id: number) {
-	return request.delete('/sysMenu', { data: { id } });
+	return request.delete(SYS_API + '/sysMenu', { data: { id } });
 }

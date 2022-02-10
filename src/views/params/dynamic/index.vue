@@ -43,7 +43,7 @@ export default defineComponent({
 			router.push({
 				name: 'paramsDynamicDetails',
 				params: {
-					t: 'f-vue-admin',
+					t: 'f-vue-cloud',
 					id: state.value,
 				},
 			});

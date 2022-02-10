@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import { SYS_API } from '/@/api/constant';
 
 export interface SysRolesMenus {
 	roleId: number, // 角色id
@@ -17,7 +18,7 @@ export interface SysRole {
  * @returns 用户信息
  */
 export function add(role: SysRole) {
-	return request.post('/sysRole', role);
+	return request.post(SYS_API + '/sysRole', role);
 }
 
 /**
@@ -26,7 +27,7 @@ export function add(role: SysRole) {
  * @returns 修改数量
  */
 export function update(role: SysRole) {
-	return request.put('/sysRole', role);
+	return request.put(SYS_API + '/sysRole', role);
 }
 
 /**
@@ -35,7 +36,7 @@ export function update(role: SysRole) {
  * @returns 修改数量
  */
 export function deleteById(id: number) {
-	return request.delete('/sysRole', { data: { id } });
+	return request.delete(SYS_API + '/sysRole', { data: { id } });
 }
 
 /**
@@ -44,7 +45,7 @@ export function deleteById(id: number) {
  * @returns 返回接口数据
  */
 export function selectPage(params: object) {
-	return request.post('/sysRole/page', { ...params, searchCount: true });
+	return request.post(SYS_API + '/sysRole/page', { ...params, searchCount: true });
 }
 
 /**
@@ -52,7 +53,7 @@ export function selectPage(params: object) {
  * @returns 返回所有角色
  */
 export function selectAll() {
-	return request.get('/sysRole/all');
+	return request.get(SYS_API + '/sysRole/all');
 }
 
 /**
@@ -61,7 +62,7 @@ export function selectAll() {
  * @returns 返回菜单id数组
  */
 export function menuByRoleId(id: number) {
-	return request.get('/sysRole/menuByRoleId?id=' + id);
+	return request.get(SYS_API + '/sysRole/menuByRoleId?id=' + id);
 }
 
 /**
@@ -69,7 +70,7 @@ export function menuByRoleId(id: number) {
  * @param roleMenu 角色菜单关系
  */
 export function bind(roleMenu: SysRolesMenus) {
-	return request.post('/sysRole/bindMenu', roleMenu);
+	return request.post(SYS_API + '/sysRole/bindMenu', roleMenu);
 }
 
 /**
@@ -77,5 +78,5 @@ export function bind(roleMenu: SysRolesMenus) {
  * @param roleMenu 角色菜单关系
  */
 export function unBind(roleMenu: SysRolesMenus) {
-	return request.post('/sysRole/unBindMenu', roleMenu);
+	return request.post(SYS_API + '/sysRole/unBindMenu', roleMenu);
 }

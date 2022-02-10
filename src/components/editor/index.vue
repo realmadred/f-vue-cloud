@@ -58,7 +58,7 @@ export default {
 			initWangeditor();
 		});
 		// 监听双向绑定值的改变
-		// https://gitee.com/realmadridlf/f-vue-admin/issues/I4LM7I
+		// https://gitee.com/realmadridlf/f-vue-cloud/issues/I4LM7I
 		watch(
 			() => props.modelValue,
 			(value) => {

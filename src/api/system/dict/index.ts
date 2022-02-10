@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import { SYS_API } from '/@/api/constant';
 
 
 export interface SysDict {
@@ -26,7 +27,7 @@ export interface SysDictSave extends SysDict {
  * @returns 字典
  */
 export function add(dict: SysDict) {
-	return request.post('/sysDict', dict);
+	return request.post(SYS_API + '/sysDict', dict);
 }
 
 /**
@@ -35,7 +36,7 @@ export function add(dict: SysDict) {
  * @returns 修改数量
  */
 export function update(dict: SysDict) {
-	return request.put('/sysDict', dict);
+	return request.put(SYS_API + '/sysDict', dict);
 }
 
 /**
@@ -44,7 +45,7 @@ export function update(dict: SysDict) {
  * @returns 修改数量
  */
 export function deleteById(id: number) {
-	return request.delete('/sysDict', { data: { id } });
+	return request.delete(SYS_API + '/sysDict', { data: { id } });
 }
 
 /**
@@ -53,7 +54,7 @@ export function deleteById(id: number) {
  * @returns 返回接口数据
  */
 export function selectPage(params: object) {
-	return request.post('/sysDict/page', { ...params, searchCount: true });
+	return request.post(SYS_API + '/sysDict/page', { ...params, searchCount: true });
 }
 
 /**
@@ -62,7 +63,7 @@ export function selectPage(params: object) {
  * @returns 字典值
  */
 export function detailByDictId(id: number) {
-	return request.get('/sysDict/detailByDictId?id=' + id);
+	return request.get(SYS_API + '/sysDict/detailByDictId?id=' + id);
 }
 
 /**
@@ -71,7 +72,7 @@ export function detailByDictId(id: number) {
  * @returns 字典值
  */
 export function detailByCode(code: string) {
-	return request.get('/sysDict/detailByCode?code=' + code);
+	return request.get(SYS_API + '/sysDict/detailByCode?code=' + code);
 }
 
 /**
@@ -79,5 +80,5 @@ export function detailByCode(code: string) {
  * @param detail 字典详情数据
  */
 export function save(detail: SysDictSave) {
-	return request.post('/sysDict/save', detail);
+	return request.post(SYS_API + '/sysDict/save', detail);
 }

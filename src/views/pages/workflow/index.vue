@@ -133,7 +133,7 @@ export default defineComponent({
 		const initSortable = () => {
 			state.leftNavList.forEach((v, k) => {
 				Sortable.create(document.getElementById(`left${k}`), {
-					group: { name: 'f-vue-admin-1', pull: 'clone', put: false },
+					group: { name: 'f-vue-cloud-1', pull: 'clone', put: false },
 					animation: 0,
 					sort: false,
 					draggable: '.workflow-left-item',

@@ -29,7 +29,7 @@ export default {
 			newsList: [
 				{
 					label: '关于版本发布的通知',
-					value: 'f-vue-admin，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2021年02月28日！',
+					value: 'f-vue-cloud，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2021年02月28日！',
 					time: '2020-12-08',
 				},
 				{
@@ -45,7 +45,7 @@ export default {
 		};
 		// 前往通知中心点击
 		const onGoToGiteeClick = () => {
-			window.open('https://gitee.com/realmadridlf/f-vue-admin');
+			window.open('https://gitee.com/realmadridlf/f-vue-cloud');
 		};
 		return {
 			onAllReadClick,

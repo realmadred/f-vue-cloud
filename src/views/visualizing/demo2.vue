@@ -788,7 +788,7 @@ export default defineComponent({
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	background: url(https://gitee.com/realmadridlf/f-vue-admin-images/raw/master/visualizing/demo2.jpg);
+	background: url(https://gitee.com/realmadridlf/f-vue-cloud-images/raw/master/visualizing/demo2.jpg);
 	background-size: 100% 100%;
 	display: flex;
 	flex-direction: column;

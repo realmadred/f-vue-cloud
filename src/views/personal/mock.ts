@@ -6,12 +6,12 @@ export const newsInfoList: Array<object> = [
 	{
 		title: '[发布] 2021年02月28日发布基于 vue3.x + vite v1.0.0 版本',
 		date: '02/28',
-		link: 'https://gitee.com/realmadridlf/f-vue-admin',
+		link: 'https://gitee.com/realmadridlf/f-vue-cloud',
 	},
 	{
 		title: '[发布] 2021年04月15日发布 vue2.x + webpack 重构版本',
 		date: '04/15',
-		link: 'https://gitee.com/realmadridlf/f-vue-admin',
+		link: 'https://gitee.com/realmadridlf/f-vue-cloud',
 	}
 ];
 

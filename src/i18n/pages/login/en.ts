@@ -13,7 +13,7 @@ export default {
 		two6: 'Copyright: ',
 	},
 	account: {
-		accountPlaceholder1: 'The user name admin or not is test',
+		accountPlaceholder1: 'The user name cloud or not is test',
 		accountPlaceholder2: 'Password: 123456',
 		accountPlaceholder3: 'Please enter the verification code',
 		accountBtnText: 'Sign in',

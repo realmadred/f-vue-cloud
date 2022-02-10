@@ -202,7 +202,7 @@ export default {
 					})
 					.catch(() => { });
 			} else if (path === 'wareHouse') {
-				window.open('https://gitee.com/realmadridlf/f-vue-admin');
+				window.open('https://gitee.com/realmadridlf/f-vue-cloud');
 			} else {
 				router.push(path);
 			}

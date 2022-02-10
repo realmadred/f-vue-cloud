@@ -25,7 +25,7 @@ export default {
 	setup() {
 		const { copyText } = commonFunction();
 		const state = reactive({
-			copyVal: 'https://gitee.com/realmadridlf/f-vue-admin',
+			copyVal: 'https://gitee.com/realmadridlf/f-vue-cloud',
 			shearVal: '',
 		});
 		// 页面加载时

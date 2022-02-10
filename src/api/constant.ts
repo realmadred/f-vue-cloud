@@ -1,5 +1,10 @@
 /* 系统常量 */
 
+// api
+export const SYS_API: string = '/sys'
+export const ORDER_API: string = '/order'
+export const FILE_API: string = '/file'
+
 // 管理员id
 export const ADMIN_ID: number = 1
 

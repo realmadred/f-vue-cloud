@@ -41,7 +41,7 @@ export default defineComponent({
 		const onGoDetailsClick = () => {
 			router.push({
 				path: '/params/common/details',
-				query: { id: state.value, name: 'f-vue-admin' },
+				query: { id: state.value, name: 'f-vue-cloud' },
 			});
 			state.value = '';
 		};

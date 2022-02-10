@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import { SYS_API } from '/@/api/constant';
 
 /**
  * 后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
@@ -6,7 +7,7 @@ import request from '/@/utils/request';
  * @returns 返回接口数据
  */
 export function getMenu(type: number | null) {
-	return request.get('/sysMenu/tree', { params: { type } });
+	return request.get(SYS_API + '/sysMenu/tree', { params: { type } });
 }
 
 /**
@@ -14,7 +15,7 @@ export function getMenu(type: number | null) {
  * @returns 按钮权限数组
  */
 export function getPerms() {
-	return request.get('/sysMenu/perms');
+	return request.get(SYS_API + '/sysMenu/perms');
 }
 
 
