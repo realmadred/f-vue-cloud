@@ -40,7 +40,7 @@
 				<el-table-column label="类型" show-overflow-tooltip width="80">
 					<template #default="scope">
 						<el-tag v-if="scope.row.type === 1" type="success" size="small">菜单</el-tag>
-						<el-tag v-else type="primary" size="small">按钮</el-tag>
+						<el-tag v-else size="small">按钮</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" show-overflow-tooltip width="140">
@@ -118,6 +118,7 @@ export default {
 			})
 				.then(() => {
 					deleteById(row.id).then(() => {
+						getMenuData()
 						ElMessage.success('删除成功');
 						initBackEndControlRoutes(true)
 					})

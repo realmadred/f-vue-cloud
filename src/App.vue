@@ -26,7 +26,7 @@ export default defineComponent({
 		const route = useRoute();
 		const store = useStore();
 		const state = reactive({
-			i18nLocale: '',
+			i18nLocale: {},
 		});
 		// 获取布局配置信息
 		const getThemeConfig = computed(() => {
