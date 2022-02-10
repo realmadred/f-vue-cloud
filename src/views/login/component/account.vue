@@ -1,6 +1,6 @@
 <template>
-	<el-form class="login-content-form">
-		<el-form-item class="login-animation-one">
+	<el-form class="login-content-form" :model="ruleForm" :rules="rules" ref="form">
+		<el-form-item class="login-animation-one" prop="userName">
 			<el-input
 				type="text"
 				:placeholder="$t('message.account.accountPlaceholder1')"
@@ -15,7 +15,7 @@
 				</template>
 			</el-input>
 		</el-form-item>
-		<el-form-item class="login-animation-two">
+		<el-form-item class="login-animation-two" prop="password">
 			<el-input
 				:type="isShowPassword ? 'text' : 'password'"
 				:placeholder="$t('message.account.accountPlaceholder2')"
@@ -37,35 +37,12 @@
 				</template>
 			</el-input>
 		</el-form-item>
-		<!-- <el-form-item class="login-animation-three">
-			<el-row :gutter="15">
-				<el-col :span="16">
-					<el-input
-						type="text"
-						maxlength="4"
-						:placeholder="$t('message.account.accountPlaceholder3')"
-						v-model="ruleForm.code"
-						clearable
-						autocomplete="off"
-					>
-						<template #prefix>
-							<el-icon class="el-input__icon"><elementPosition /></el-icon>
-						</template>
-					</el-input>
-				</el-col>
-				<el-col :span="8">
-					<div class="login-content-code">
-						<span class="login-content-code-img">1234</span>
-					</div>
-				</el-col>
-			</el-row>
-		</el-form-item>-->
 		<el-form-item class="login-animation-four">
 			<el-button
 				type="primary"
 				class="login-content-submit"
 				round
-				@click="onSignIn"
+				@click="submitForm(form, onSignIn)" 
 				:loading="loading.signIn"
 			>
 				<span>{{ $t('message.account.accountBtnText') }}</span>
@@ -79,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, reactive, defineComponent, computed, getCurrentInstance } from 'vue';
+import { ref, toRefs, reactive, defineComponent, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
@@ -93,11 +70,13 @@ import { Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
 import { publicKey, decrypt } from '/@/utils/rsa';
 import { importSecretKey, encryptMessage } from '/@/utils/aes';
+import { submitForm } from '/@/utils/form';
 export default defineComponent({
 	name: 'loginAccount',
 	setup() {
 		const { t } = useI18n();
 		const { proxy } = getCurrentInstance() as any;
+		const form = ref()
 		const store = useStore();
 		const route = useRoute();
 		const router = useRouter();
@@ -111,6 +90,28 @@ export default defineComponent({
 			loading: {
 				signIn: false,
 			},
+			rules: {
+				userName: [
+					{
+						type: 'string',
+						min: 2,
+						max: 20,
+						required: true,
+						message: '请输入2-20位用户名',
+						trigger: 'change',
+					},
+				],
+				password: [
+					{
+						type: 'string',
+						min: 6,
+						max: 30,
+						required: true,
+						message: '请输入6-30位密码',
+						trigger: 'change',
+					},
+				],
+			}
 		});
 
 		let token: string;
@@ -190,8 +191,9 @@ export default defineComponent({
 			}, 300);
 		};
 		return {
-			currentTime,
 			onSignIn,
+			form,
+			submitForm,
 			...toRefs(state),
 		};
 	},

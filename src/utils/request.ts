@@ -41,11 +41,10 @@ service.interceptors.response.use(
 		} else {
 			if (response.config.url === '/auth/login') {
 				ElMessage.warning('登录失败');
-			} else if (res.code === 401) {
+			} else if (res.code === 401 || res.code === 604) {
 				// `token` 过期或者账号已在别处登录
 				Session.clear(); // 清除浏览器全部临时缓存
 				window.location.href = '/'; // 去登录页
-				ElMessage.warning('请登录');
 			} else {
 				// 提示信息
 				ElMessage.warning(res.msg as string | 'warning');
