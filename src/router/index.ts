@@ -6,6 +6,7 @@ import { Session } from '/@/utils/storage';
 import { staticRoutes, dynamicRoutes } from '/@/router/route';
 import { initFrontEndControlRoutes } from '/@/router/frontEnd';
 import { initBackEndControlRoutes } from '/@/router/backEnd';
+import { SESSION_TOKEN } from '/@/api/constant';
 
 /**
  * 创建一个可以被 Vue 应用程序使用的路由实例
@@ -139,7 +140,7 @@ if (!isRequestRoutes) initFrontEndControlRoutes();
 router.beforeEach(async (to, _, next) => {
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
-	const token = Session.get('token');
+	const token = Session.get(SESSION_TOKEN);
 	if (!token) {
 		// 未登录
 		if (to.path === '/login') {

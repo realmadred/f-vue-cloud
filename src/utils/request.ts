@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { Session } from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
+import { SESSION_TOKEN } from '/@/api/constant';
 
 // 配置新建一个 axios 实例
 const service = axios.create({
@@ -17,8 +18,8 @@ service.interceptors.request.use(
 		if (!config.headers) {
 			config.headers = {}
 		}
-		if (Session.get('token')) {
-			config.headers.token = Session.get('token')
+		if (Session.get(SESSION_TOKEN)) {
+			config.headers.token = Session.get(SESSION_TOKEN)
 		}
 		NextLoading.start()
 		return config;

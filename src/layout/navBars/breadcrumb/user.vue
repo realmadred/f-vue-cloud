@@ -194,7 +194,7 @@ export default {
 						signOut().then(() => {
 							Session.clear(); // 清除缓存/token等
 							resetRoute(); // 删除/重置路由
-							router.push('/login');
+							window.location.href = '/'; // 去登录页
 							setTimeout(() => {
 								ElMessage.success(t('message.user.logOutSuccess'));
 							}, 300);

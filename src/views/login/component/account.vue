@@ -42,7 +42,7 @@
 				type="primary"
 				class="login-content-submit"
 				round
-				@click="submitForm(form, onSignIn)" 
+				@click="submitForm(form, onSignIn)"
 				:loading="loading.signIn"
 			>
 				<span>{{ $t('message.account.accountBtnText') }}</span>
@@ -65,11 +65,11 @@ import { initBackEndControlRoutes } from '/@/router/backEnd';
 import { useStore } from '/@/store/index';
 import { signIn, getKey } from '/@/api/login/index';
 import { getPerms } from '/@/api/menu/index';
-import { ADMIN_ID, SET_USER_INFOS, SET_USER_PERMS, SESSION_TOKEN, SESSION_USER_INFO, USER_INFOS_MODULE, SESSION_USER_PERM, USER_PERMS_MODULE } from '/@/api/constant';
+import { ADMIN_ID, SET_USER_INFOS, SET_USER_PERMS, SESSION_TOKEN, SESSION_USER_INFO, USER_INFOS_MODULE, SESSION_USER_PERM, USER_PERMS_MODULE, AES_MODULE, SET_AES_KEY, SESSION_AES } from '/@/api/constant';
 import { Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
 import { publicKey, decrypt } from '/@/utils/rsa';
-import { importSecretKey, encryptMessage } from '/@/utils/aes';
+import { getCryptoKey, encryptMessage } from '/@/utils/aes';
 import { submitForm } from '/@/utils/form';
 export default defineComponent({
 	name: 'loginAccount',
@@ -114,56 +114,58 @@ export default defineComponent({
 			}
 		});
 
-		let token: string;
-
-		getKey(publicKey).then((res) => {
-			let strs = (decrypt(res.data) as string).split('|')
-			token = strs[0]
-			importSecretKey(strs[1])
-		})
-
 		// 时间获取
 		const currentTime = computed(() => {
 			return formatAxis(new Date());
 		});
+
 		// 登录
-		const onSignIn = async () => {
+		const onSignIn = () => {
 			// 模拟数据
 			state.loading.signIn = true;
-			// 请求登录接口
-			const data = await encryptMessage(JSON.stringify({
-				name: state.ruleForm.userName,
-				password: state.ruleForm.password,
-			}))
-			signIn({ data, token }).then(async (json) => {
-				// 存储 token 到浏览器缓存
-				Session.set(SESSION_TOKEN, json.data.token);
-				// 存储用户信息到浏览器缓存
-				Session.set(SESSION_USER_INFO, json.data);
-				// 1、请注意执行顺序(存储用户信息到vuex)
-				store.dispatch(USER_INFOS_MODULE + '/' + SET_USER_INFOS, json.data);
-				if (!store.state.themeConfig.themeConfig.isRequestRoutes) {
-					// 前端控制路由，2、请注意执行顺序
-					await initFrontEndControlRoutes();
-				} else {
-					// 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
-					// 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
-					await initBackEndControlRoutes(true);
+			getKey(publicKey).then((res) => {
+				let strs = (decrypt(res.data) as string).split('|')
+				const token: string = strs[0]
+				// 缓存key
+				Session.set(SESSION_AES, strs[1]);
+				getCryptoKey(strs[1]).then(async (cryptoKey) => {
+					// 请求登录接口
+					const data = await encryptMessage(JSON.stringify({
+						name: state.ruleForm.userName,
+						password: state.ruleForm.password,
+					}), cryptoKey)
+					signIn({ data, token }).then(async (json) => {
+						// 存储 token 到浏览器缓存
+						Session.set(SESSION_TOKEN, json.data.token);
+						// 存储用户信息到浏览器缓存
+						delete json.data.token
+						Session.set(SESSION_USER_INFO, json.data);
+						// 1、请注意执行顺序(存储用户信息到vuex)
+						store.dispatch(USER_INFOS_MODULE + '/' + SET_USER_INFOS, json.data);
+						if (!store.state.themeConfig.themeConfig.isRequestRoutes) {
+							// 前端控制路由，2、请注意执行顺序
+							await initFrontEndControlRoutes();
+						} else {
+							// 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
+							// 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
+							await initBackEndControlRoutes(true);
 
-					// 获取用户按钮权限 管理员不需要获取
-					if (json.data.id !== ADMIN_ID) {
-						getPerms().then((res) => {
-							Session.set(SESSION_USER_PERM, res.data);
-							// 将用户权限存储起来
-							store.dispatch(USER_PERMS_MODULE + '/' + SET_USER_PERMS, res.data);
-						})
-					}
-				}
-				signInSuccess();
-			}).catch(() => {
-				// 关闭 loading
-				state.loading.signIn = false;
-			});
+							// 获取用户按钮权限 管理员不需要获取
+							if (json.data.id !== ADMIN_ID) {
+								getPerms().then((res) => {
+									Session.set(SESSION_USER_PERM, res.data);
+									// 将用户权限存储起来
+									store.dispatch(USER_PERMS_MODULE + '/' + SET_USER_PERMS, res.data);
+								})
+							}
+						}
+						signInSuccess();
+					}).catch(() => {
+						// 关闭 loading
+						state.loading.signIn = false;
+					})
+				})
+			})
 		};
 		// 登录成功后的跳转
 		const signInSuccess = () => {

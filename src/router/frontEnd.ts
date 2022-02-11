@@ -1,6 +1,7 @@
 import { store } from '/@/store/index';
 import { Session } from '/@/utils/storage';
 import { setAddRoute, setFilterMenuAndCacheTagsViewRoutes } from '/@/router/index';
+import { SESSION_TOKEN } from '/@/api/constant';
 
 /**
  * 前端控制路由：初始化方法，防止刷新时路由丢失
@@ -10,7 +11,7 @@ import { setAddRoute, setFilterMenuAndCacheTagsViewRoutes } from '/@/router/inde
  */
 export async function initFrontEndControlRoutes() {
 	// 无 token 停止执行下一步
-	if (!Session.get('token')) return false;
+	if (!Session.get(SESSION_TOKEN)) return false;
 	// 触发初始化用户信息
 	store.dispatch('userInfos/setUserInfos');
 	// 添加动态路由

@@ -65,7 +65,7 @@ import { reactive, toRefs, onMounted, getCurrentInstance, ref } from 'vue';
 import { add } from '/@/api/system/user/index';
 import { submitForm } from '/@/utils/form';
 import { rule } from './rule.ts';
-import { encryptMessage } from '/@/utils/aes';
+import { encrypt } from '/@/utils/aes';
 
 export default {
 	name: 'systemAddUser',
@@ -100,7 +100,7 @@ export default {
 		};
 		// 新增
 		const onSubmit = async () => {
-			const data = await encryptMessage(JSON.stringify(state.ruleForm))
+			const data = await encrypt(JSON.stringify(state.ruleForm))
 			await add({ data });
 			closeDialog();
 			// 刷新列表

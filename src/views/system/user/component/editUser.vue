@@ -70,7 +70,7 @@ import { reactive, toRefs, onMounted, ref } from 'vue';
 import { update, SysUser } from '/@/api/system/user/index';
 import { rule } from './rule.ts';
 import { submitForm } from '/@/utils/form';
-import { encryptMessage } from '/@/utils/aes';
+import { encrypt } from '/@/utils/aes';
 export default {
 	name: 'systemEditUser',
 	setup() {
@@ -105,7 +105,7 @@ export default {
 		};
 		// 新增
 		const onSubmit = async () => {
-			const data = await encryptMessage(JSON.stringify(state.ruleForm))
+			const data = await encrypt(JSON.stringify(state.ruleForm))
 			await update({ data })
 			closeDialog()
 		};

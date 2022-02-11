@@ -3,10 +3,11 @@ import { Session } from '/@/utils/storage';
 import { setAddRoute, setFilterMenuAndCacheTagsViewRoutes } from '/@/router/index';
 import { dynamicRoutes } from '/@/router/route';
 import { getMenu } from '/@/api/menu/index';
-import { SET_USER_INFOS, SET_USER_PERMS, USER_INFOS_MODULE, USER_PERMS_MODULE } from '../api/constant';
+import { SESSION_MENU, SESSION_TOKEN, SET_USER_INFOS, SET_USER_PERMS, USER_INFOS_MODULE, USER_PERMS_MODULE } from '/@/api/constant';
 
 const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}');
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
+
 /**
  * 获取目录下的 .vue、.tsx 全部文件
  * @method import.meta.glob
@@ -23,18 +24,18 @@ const dynamicViewsModules: Record<string, Function> = Object.assign({}, { ...lay
  */
 export async function initBackEndControlRoutes(req: boolean) {
 	// 无 token 停止执行下一步
-	if (!Session.get('token')) return false;
+	if (!Session.get(SESSION_TOKEN)) return false;
 	// 触发初始化用户信息
 	store.dispatch(USER_INFOS_MODULE + '/' + SET_USER_INFOS);
 	// 触发初始化用户权限
 	store.dispatch(USER_PERMS_MODULE + '/' + SET_USER_PERMS);
 	// 获取路由菜单数据
 	let menu: Array<object>;
-	if (req || !(menu = Session.get('getMenu'))) {
+	if (req || !(menu = Session.get(SESSION_MENU))) {
 		const res = await getMenu(1);
 		menu = res.data as Array<object> | [];
 		// 存到session
-		Session.set('getMenu', menu)
+		Session.set(SESSION_MENU, menu)
 	}
 
 	// 存储接口原始路由（未处理component），根据需求选择使用

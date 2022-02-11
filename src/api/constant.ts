@@ -13,9 +13,11 @@ export const YES: number = 1
 export const NO: number = 0
 
 // session name
-export const SESSION_USER_PERM: string = 'userPerm'
-export const SESSION_USER_INFO: string = 'userInfo'
-export const SESSION_TOKEN: string = 'token'
+export const SESSION_USER_PERM: string = 'up'
+export const SESSION_USER_INFO: string = 'u'
+export const SESSION_TOKEN: string = 't'
+export const SESSION_MENU: string = 'm'
+export const SESSION_AES: string = 'a'
 
 // actions
 export const SET_USER_PERMS: string = 'setUserPerms'
