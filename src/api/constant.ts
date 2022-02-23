@@ -31,3 +31,8 @@ export const TAGS_VIEW_ROUTES_MODULE: string = 'tagsViewRoutes'
 export const USER_INFOS_MODULE: string = 'userInfos'
 export const USER_PERMS_MODULE: string = 'userPerms'
 export const REQUEST_OLD_ROUTES_MODULE: string = 'requestOldRoutes'
+
+// 文件
+export const FILE_BUCKET: string = 'sys'
+export const FILE_EXPIRY: number = 60
+export const FILE_SERVER_URL: string = import.meta.env.VITE_IMAGE_URL as string

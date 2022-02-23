@@ -4,13 +4,15 @@
 			<el-col :sm="6" class="mb15">
 				<div class="home-card-item home-card-first">
 					<div class="flex-margin flex">
-						<img :src="getUserInfos.headImage" />
+						<img :src="getSrc(getUserInfos.headImage)" />
 						<div class="home-card-first-right ml15">
 							<div class="flex-margin">
-								<div class="home-card-first-right-title">
-									{{ currentTime }}，{{ getUserInfos.name === '' ? 'test' : getUserInfos.name }}！
-								</div>
-								<div class="home-card-first-right-msg mt5">{{ getUserInfos.name === 'admin' ? '超级管理' : '普通用户' }}</div>
+								<div
+									class="home-card-first-right-title"
+								>{{ currentTime }}，{{ getUserInfos.name === '' ? 'test' : getUserInfos.name }}！</div>
+								<div
+									class="home-card-first-right-msg mt5"
+								>{{ getUserInfos.name === 'admin' ? '超级管理' : '普通用户' }}</div>
 							</div>
 						</div>
 					</div>
@@ -101,6 +103,7 @@ import * as echarts from 'echarts';
 import { CountUp } from 'countup.js';
 import { formatAxis } from '/@/utils/formatTime';
 import { useStore } from '/@/store/index';
+import { getSrc } from '/@/utils/common';
 import { topCardItemList, environmentList, activitiesList } from './mock';
 export default {
 	name: 'home',
@@ -322,6 +325,7 @@ export default {
 		return {
 			getUserInfos,
 			currentTime,
+			getSrc,
 			...toRefs(state),
 		};
 	},

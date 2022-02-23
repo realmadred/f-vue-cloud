@@ -83,7 +83,7 @@
 		</div>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
 			<span class="layout-navbars-breadcrumb-user-link">
-				<img :src="getUserInfos.headImage" class="layout-navbars-breadcrumb-user-link-photo mr5" />
+				<img :src="getSrc(getUserInfos.headImage)" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				{{ getUserInfos.name === '' ? 'test' : getUserInfos.name }}
 				<el-icon class="el-icon--right">
 					<elementArrowDown />
@@ -117,6 +117,7 @@ import { Session, Local } from '/@/utils/storage';
 import { signOut } from '/@/api/login';
 import UserNews from '/@/layout/navBars/breadcrumb/userNews.vue';
 import Search from '/@/layout/navBars/breadcrumb/search.vue';
+import { getSrc } from '/@/utils/common';
 export default {
 	name: 'layoutBreadcrumbUser',
 	components: { UserNews, Search },
@@ -283,6 +284,7 @@ export default {
 			onComponentSizeChange,
 			onLanguageChange,
 			searchRef,
+			getSrc,
 			layoutUserFlexNum,
 			...toRefs(state),
 		};

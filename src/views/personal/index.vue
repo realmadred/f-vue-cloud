@@ -6,22 +6,22 @@
 				<el-card shadow="hover" header="个人信息">
 					<div class="personal-user">
 						<div class="personal-user-left">
-							<el-upload class="h100 personal-user-left-upload" action="https://jsonplaceholder.typicode.com/posts/" multiple :limit="1">
-								<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg" />
+							<el-upload class="h100 personal-user-left-upload" :http-request="upload" multiple :limit="1">
+								<img :src="getSrc(getUserInfos.headImage)" />
 							</el-upload>
 						</div>
 						<div class="personal-user-right">
 							<el-row>
-								<el-col :span="24" class="personal-title mb18">{{ currentTime }}，admin，生活变的再糟糕，也不妨碍我变得更好！ </el-col>
+								<el-col :span="24" class="personal-title mb18">{{ currentTime }}，admin，生活变的再糟糕，也不妨碍我变得更好！</el-col>
 								<el-col :span="24">
 									<el-row>
 										<el-col :xs="24" :sm="8" class="personal-item mb6">
 											<div class="personal-item-label">昵称：</div>
-											<div class="personal-item-value">{{getUserInfos.name}}</div>
+											<div class="personal-item-value">{{ getUserInfos.name }}</div>
 										</el-col>
 										<el-col :xs="24" :sm="16" class="personal-item mb6">
 											<div class="personal-item-label">身份：</div>
-											<div class="personal-item-value">{{getUserInfos.name}}</div>
+											<div class="personal-item-value">{{ getUserInfos.name }}</div>
 										</el-col>
 									</el-row>
 								</el-col>
@@ -33,7 +33,7 @@
 										</el-col>
 										<el-col :xs="24" :sm="16" class="personal-item mb6">
 											<div class="personal-item-label">登录时间：</div>
-											<div class="personal-item-value">{{getUserInfos.createTime}}</div>
+											<div class="personal-item-value">{{ getUserInfos.createTime }}</div>
 										</el-col>
 									</el-row>
 								</el-col>
@@ -125,8 +125,7 @@
 									<el-button type="primary">
 										<el-icon>
 											<elementPosition />
-										</el-icon>
-										更新个人信息
+										</el-icon>更新个人信息
 									</el-button>
 								</el-form-item>
 							</el-col>
@@ -148,7 +147,7 @@
 						<div class="personal-edit-safe-item">
 							<div class="personal-edit-safe-item-left">
 								<div class="personal-edit-safe-item-left-label">密保手机</div>
-								<div class="personal-edit-safe-item-left-value">已绑定手机：{{getUserInfos.phone}}</div>
+								<div class="personal-edit-safe-item-left-value">已绑定手机：{{ getUserInfos.phone }}</div>
 							</div>
 							<div class="personal-edit-safe-item-right">
 								<el-button type="text">立即修改</el-button>
@@ -188,6 +187,11 @@ import { toRefs, reactive, computed } from 'vue';
 import { formatAxis } from '/@/utils/formatTime';
 import { newsInfoList, recommendList } from './mock';
 import { useStore } from '/@/store/index';
+import { getPreSignedPutObjectUrl, MyFile, uploadFileByUrl } from '/@/api/file';
+import { update } from '/@/api/system/user';
+import { getPath, getSuffix, getSrc } from '/@/utils/common';
+import { SET_USER_INFOS, USER_INFOS_MODULE } from '/@/api/constant';
+import { encrypt } from '/@/utils/aes';
 export default {
 	name: 'personal',
 	setup() {
@@ -214,9 +218,24 @@ export default {
 			return store.state.userInfos.userInfos;
 		});
 
+		const upload = (file: MyFile) => {
+			getPreSignedPutObjectUrl(getSuffix(file.file.name)).then(res => {
+				uploadFileByUrl(file.file, res.data).then(() => {
+					// 修改用户头像
+					encrypt(JSON.stringify({ "id": (getUserInfos.value as any).id, "headImage": getPath(res.data) }))
+						.then(data => {
+							update({ data })
+						})
+					store.dispatch(USER_INFOS_MODULE + '/' + SET_USER_INFOS, { ...getUserInfos.value, "headImage": getPath(res.data) });
+				})
+			})
+		}
+
 		return {
 			currentTime,
 			getUserInfos,
+			upload,
+			getSrc,
 			...toRefs(state),
 		};
 	},
@@ -224,14 +243,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../theme/mixins/mixins.scss';
+@import "../../theme/mixins/mixins.scss";
 .personal {
 	.personal-user {
 		height: 130px;
 		display: flex;
 		align-items: center;
 		.personal-user-left {
-			width: 100px;
+			width: 130px;
 			height: 130px;
 			border-radius: 3px;
 			::v-deep(.el-upload) {
@@ -346,7 +365,7 @@ export default {
 			padding-left: 10px;
 			color: var(--el-text-color-regular);
 			&::after {
-				content: '';
+				content: "";
 				width: 2px;
 				height: 10px;
 				position: absolute;

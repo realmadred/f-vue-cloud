@@ -1,4 +1,5 @@
-import { SysDictDetail } from '../api/system/dict';
+import { FILE_BUCKET, FILE_SERVER_URL } from '/@/api/constant';
+import { SysDictDetail } from '/@/api/system/dict';
 import { i18n } from '/@/i18n/index';
 
 /* 1是 0否 */
@@ -117,6 +118,52 @@ export function getDictName(dict: SysDictDetail[], value: string): string {
       if (name) {
          return name
       }
+   }
+   return ''
+}
+
+/**
+ * 获取文件后缀
+ * @param fileName 文件名
+ * @returns 后缀
+ */
+export function getSuffix(fileName: string): string {
+   if (fileName) {
+      return fileName.substring(fileName.lastIndexOf('.') - 1)
+   }
+   return ''
+}
+
+/**
+ * 获取文件路径
+ * http://192.168.137.7:9000/sys/632efa4f59aa57d7c9e88999d27271f5S.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&
+ * X-Amz-Credential=sysAdminService%2F20220223%2Fzh-feng%2Fs3%2Faws4_request&X-Amz-Date=20220223T062324Z&
+ * X-Amz-Expires=60&X-Amz-SignedHeaders=host&
+ * X-Amz-Signature=c146dc2968b0810256151550c85af6bc6243755299b68c1cba59edf582575945
+ * @param url url
+ * @returns 文件路径
+ */
+export function getPath(url: string): string {
+   if (url) {
+      return url.substring(url.indexOf('/' + FILE_BUCKET + '/'), url.indexOf('?'))
+   }
+   return ''
+}
+
+/**
+ * 获取文件src
+ * /sys/632efa4f59aa57d7c9e88999d27271f5S.jpg > http://192.168.137.7:9000/sys/632efa4f59aa57d7c9e88999d27271f5S.jpg
+ * http://192.168.137.7:9000/sys/632efa4f59aa57d7c9e88999d27271f5S.jpg > http://192.168.137.7:9000/sys/632efa4f59aa57d7c9e88999d27271f5S.jpg
+ * 
+ * @param path 路径
+ * @returns 文件src
+ */
+export function getSrc(path: string): string {
+   if (path) {
+      if (path.startsWith('http')) {
+         return path
+      }
+      return FILE_SERVER_URL + path
    }
    return ''
 }
