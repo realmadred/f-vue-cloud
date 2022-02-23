@@ -19,7 +19,7 @@
 			</div>
 			<el-table border stripe :data="tableData.data" style="width: 100%" highlight-current-row>
 				<el-table-column type="index" label="序号" width="50" />
-				<el-table-column prop="type" label="类型" show-overflow-tooltip>
+				<el-table-column prop="type" label="类型" width="50">
 					<template #default="scope">
 						<span>{{ getDictName(logType, scope.row.type + '') }}</span>
 					</template>
@@ -28,10 +28,10 @@
 				<el-table-column prop="methodName" label="方法名" show-overflow-tooltip />
 				<el-table-column prop="requestUri" label="请求路径" show-overflow-tooltip />
 				<el-table-column prop="params" label="参数" show-overflow-tooltip />
-				<el-table-column prop="requestIp" label="请求ip" show-overflow-tooltip />
+				<el-table-column prop="requestIp" label="请求ip" width="100" />
+				<el-table-column prop="createName" label="创建人" width="65" show-overflow-tooltip/>
+				<el-table-column prop="createTime" label="创建时间" width="151" show-overflow-tooltip />>
 				<el-table-column prop="errorDetail" label="错误信息" show-overflow-tooltip />
-				<el-table-column prop="createName" label="创建人" show-overflow-tooltip />
-				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip />>
 			</el-table>
 			<el-pagination
 				@size-change="onHandleSizeChange"
