@@ -165,5 +165,5 @@ export function getSrc(path: string): string {
       }
       return FILE_SERVER_URL + path
    }
-   return ''
+   return '/public/photo.jpg'
 }

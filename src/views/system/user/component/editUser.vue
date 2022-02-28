@@ -19,11 +19,6 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="头像" prop="head">
-							<el-input v-model="ruleForm.headImage" placeholder="请输入" clearable></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="sex">
 							<el-select v-model="ruleForm.sex" placeholder="请选择" clearable class="w100">
 								<el-option label="男" :value="1"></el-option>
@@ -37,8 +32,8 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="密码错误次数" show-overflow-tooltip>
-							<el-input-number :min="0" v-model="ruleForm.passwordErrorNum"></el-input-number>
+						<el-form-item label="密码错误" show-overflow-tooltip>
+							<el-input-number style="width: 222px" :min="0" v-model="ruleForm.passwordErrorNum"></el-input-number>次数
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -53,6 +48,13 @@
 							></el-switch>
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="头像" prop="head">
+							<div @click="onCropperDialogOpen">
+								<el-avatar :size="80" :src="getSrc(ruleForm.headImage)"></el-avatar>
+							</div>
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 			<template #footer>
@@ -61,6 +63,7 @@
 					<el-button type="primary" @click="submitForm(form, onSubmit)" size="small">修 改</el-button>
 				</span>
 			</template>
+			<CropperDialog ref="cropperDialogRef" title="修改头像" @on-croppe="onCroppe" />
 		</el-dialog>
 	</div>
 </template>
@@ -71,13 +74,18 @@ import { update, SysUser } from '/@/api/system/user/index';
 import { rule } from './rule.ts';
 import { submitForm } from '/@/utils/form';
 import { encrypt } from '/@/utils/aes';
+import { getSrc } from '/@/utils/common';
+import CropperDialog from '/@/components/cropper/index.vue';
 export default {
 	name: 'systemEditUser',
+	components: { CropperDialog },
 	setup() {
 		const form = ref()
+		const cropperDialogRef = ref();
 		const state = reactive({
 			isShowDialog: false,
 			ruleForm: {
+				id: 0, // id
 				name: '', // 账户名称
 				phone: '', // 手机号
 				email: '', // 邮箱
@@ -109,6 +117,18 @@ export default {
 			await update({ data })
 			closeDialog()
 		};
+
+		// 打开裁剪弹窗
+		const onCropperDialogOpen = () => {
+			cropperDialogRef.value.openDialog(getSrc(state.ruleForm.headImage));
+		};
+
+		// 打开裁剪弹窗
+		const onCroppe = (image: string) => {
+			console.log('onCroppe', image)
+			state.ruleForm.headImage = image
+		};
+
 		// 初始化部门数据
 		const initTableData = () => {
 		};
@@ -122,9 +142,14 @@ export default {
 			onCancel,
 			onSubmit,
 			submitForm,
+			cropperDialogRef,
+			onCropperDialogOpen,
 			form,
+			onCroppe,
+			getSrc,
 			...toRefs(state),
 		};
 	},
 };
 </script>
+

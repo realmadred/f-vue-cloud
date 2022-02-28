@@ -28,11 +28,11 @@ export function getPreSignedPutObjectUrl(suffix: string) {
 }
 
 /**
- * 用户退出登录
+ * 上传文件
  * @param file 文件
  * @param url 上传路径
  * @returns 路径
  */
-export function uploadFileByUrl(file: File, url: string) {
+export function uploadFileByUrl(file: File | Blob, url: string) {
 	return fileRequest.put(url, file)
 }

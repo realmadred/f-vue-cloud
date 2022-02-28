@@ -27,7 +27,7 @@
         <el-table-column prop="email" label="邮箱" show-overflow-tooltip />
         <el-table-column prop="headImage" label="头像">
           <template #default="scope">
-            <el-avatar :src="scope.row.headImage" :lazy="true"></el-avatar>
+            <el-avatar :src="getSrc(scope.row.headImage)" :lazy="true"></el-avatar>
           </template>
         </el-table-column>
         <el-table-column prop="sex" label="性别">
@@ -100,6 +100,7 @@ import { selectPage, deleteById, SysUser } from "/@/api/system/user/index";
 import AddUer from "/@/views/system/user/component/addUser.vue";
 import EditUser from "/@/views/system/user/component/editUser.vue";
 import UserRole from "/@/views/system/user/component/userRole.vue";
+import { getSrc } from '/@/utils/common';
 export default {
   name: "systemUser",
   components: { AddUer, EditUser, UserRole },
@@ -201,6 +202,7 @@ export default {
       onRowDel,
       onHandleSizeChange,
       onHandleCurrentChange,
+      getSrc,
       ...toRefs(state),
     };
   },
