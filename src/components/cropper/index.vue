@@ -48,8 +48,10 @@ import { getPreSignedPutObjectUrl, MyFile, uploadFileByUrl } from '/@/api/file';
 import { getPath } from '/@/utils/common';
 export default {
 	name: 'cropperIndex',
-	setup(props: object, context: any) {
-		const title = toRef(props, 'title' as never) || '头像'
+	props: {
+		title: String
+	},
+	setup(_: object, context: any) {
 		const state = reactive({
 			isShowDialog: false,
 			cropperImg: '',
@@ -147,7 +149,6 @@ export default {
 			onCancel,
 			onSubmit,
 			selectFile,
-			title,
 			initCropper,
 			mouseWheel,
 			...toRefs(state),
