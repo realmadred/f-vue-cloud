@@ -19,11 +19,6 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="头像" prop="head">
-							<el-input v-model="ruleForm.headImage" placeholder="请输入" clearable></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="sex">
 							<el-select v-model="ruleForm.sex" placeholder="请选择" clearable class="w100">
 								<el-option label="男" :value="1"></el-option>
@@ -48,6 +43,13 @@
 							></el-switch>
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="头像" prop="head">
+							<div @click="onCropperDialogOpen">
+								<el-avatar :size="80" :src="getSrc(ruleForm.headImage)"></el-avatar>
+							</div>
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 			<template #footer>
@@ -56,6 +58,7 @@
 					<el-button type="primary" @click="submitForm(form, onSubmit)" size="small">新 增</el-button>
 				</span>
 			</template>
+			<CropperDialog ref="cropperDialogRef" @on-croppe="onCroppe" />
 		</el-dialog>
 	</div>
 </template>
@@ -66,12 +69,16 @@ import { add } from '/@/api/system/user/index';
 import { submitForm } from '/@/utils/form';
 import { rule } from './rule.ts';
 import { encrypt } from '/@/utils/aes';
+import { getSrc } from '/@/utils/common';
+import CropperDialog from '/@/components/cropper/index.vue';
 
 export default {
 	name: 'systemAddUser',
+	components: { CropperDialog },
 	setup() {
 		const { proxy } = getCurrentInstance() as any;
 		const form = ref()
+		const cropperDialogRef = ref();
 		const state = reactive({
 			isShowDialog: false,
 			ruleForm: {
@@ -98,6 +105,15 @@ export default {
 		const onCancel = () => {
 			closeDialog();
 		};
+		// 打开裁剪弹窗
+		const onCropperDialogOpen = () => {
+			cropperDialogRef.value.openDialog(getSrc(state.ruleForm.headImage));
+		};
+
+		// 打开裁剪弹窗
+		const onCroppe = (image: string) => {
+			state.ruleForm.headImage = image
+		};
 		// 新增
 		const onSubmit = async () => {
 			const data = await encrypt(JSON.stringify(state.ruleForm))
@@ -115,6 +131,10 @@ export default {
 			form,
 			onSubmit,
 			submitForm,
+			cropperDialogRef,
+			onCropperDialogOpen,
+			onCroppe,
+			getSrc,
 			...toRefs(state),
 		};
 	},

@@ -125,7 +125,6 @@ export default {
 
 		// 打开裁剪弹窗
 		const onCroppe = (image: string) => {
-			console.log('onCroppe', image)
 			state.ruleForm.headImage = image
 		};
 

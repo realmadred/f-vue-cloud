@@ -33,7 +33,7 @@
         <el-table-column prop="sex" label="性别">
           <template #default="scope">
             <el-tag type="success" v-if="scope.row.sex == 1">男</el-tag>
-            <el-tag type="error" v-else-if="scope.row.sex == 0">女</el-tag>
+            <el-tag type="danger" v-else-if="scope.row.sex == 0">女</el-tag>
             <span v-else></span>
           </template>
         </el-table-column>
