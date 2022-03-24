@@ -1,7 +1,7 @@
 <template>
 	<div class="login-container">
 		<!-- <div class="login-logo"> -->
-			<!-- <span>{{ getThemeConfig.globalViceTitle }}</span> -->
+		<!-- <span>{{ getThemeConfig.globalViceTitle }}</span> -->
 		<!-- </div> -->
 		<div class="login-content">
 			<div class="login-content-main">
@@ -62,7 +62,8 @@ export default {
 .login-container {
 	width: 100%;
 	height: 100%;
-	background: url('https://h2.ioliu.cn/bing/FinancialTowers_ZH-CN6494148642_1920x1080.jpg?imageslim') no-repeat;
+	background: url("https://h2.ioliu.cn/bing/FinancialTowers_ZH-CN6494148642_1920x1080.jpg?imageslim")
+		no-repeat;
 	background-size: 100% 100%;
 	.login-logo {
 		position: absolute;
@@ -78,8 +79,7 @@ export default {
 		transform: translateX(-50%);
 	}
 	.login-content {
-		width: 500px;
-		padding: 20px;
+		width: 400px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -91,18 +91,21 @@ export default {
 		z-index: 1;
 		.login-content-main {
 			margin: 0 auto;
-			width: 80%;
+			width: 85%;
 			.login-content-title {
 				color: #333;
-				font-weight: 500;
-				font-size: 22px;
+				font-weight: 700;
+				font-size: 24px;
 				text-align: center;
 				letter-spacing: 4px;
-				margin: 15px 0 30px;
+				margin: 25px 0 30px;
 				white-space: nowrap;
 				z-index: 5;
 				position: relative;
 				transition: all 0.3s ease;
+			}
+			.el-tabs__item {
+				font-size: 20px;
 			}
 		}
 		.login-content-main-sacn {

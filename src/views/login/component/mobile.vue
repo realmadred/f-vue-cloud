@@ -54,6 +54,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .login-content-form {
 	margin-top: 20px;
+	margin-bottom: 15px;
 	.login-animation-one,
 	.login-animation-two,
 	.login-animation-three,
