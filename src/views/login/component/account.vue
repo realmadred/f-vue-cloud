@@ -1,13 +1,8 @@
 <template>
 	<el-form class="login-content-form" :model="ruleForm" :rules="rules" ref="form">
 		<el-form-item class="login-animation-one" prop="userName">
-			<el-input
-				type="text"
-				:placeholder="$t('message.account.accountPlaceholder1')"
-				v-model="ruleForm.userName"
-				clearable
-				autocomplete="off"
-			>
+			<el-input type="text" :placeholder="$t('message.account.accountPlaceholder1')" v-model="ruleForm.userName"
+				clearable autocomplete="off">
 				<template #prefix>
 					<el-icon class="el-input__icon">
 						<elementUser />
@@ -16,35 +11,24 @@
 			</el-input>
 		</el-form-item>
 		<el-form-item class="login-animation-two" prop="password">
-			<el-input
-				:type="isShowPassword ? 'text' : 'password'"
-				:placeholder="$t('message.account.accountPlaceholder2')"
-				v-model="ruleForm.password"
-				@keydown.enter="onSignIn"
-				autocomplete="off"
-			>
+			<el-input :type="isShowPassword ? 'text' : 'password'"
+				:placeholder="$t('message.account.accountPlaceholder2')" v-model="ruleForm.password"
+				@keydown.enter="onSignIn" autocomplete="off">
 				<template #prefix>
 					<el-icon class="el-input__icon">
 						<elementUnlock />
 					</el-icon>
 				</template>
 				<template #suffix>
-					<i
-						class="iconfont el-input__icon login-content-password"
+					<i class="iconfont el-input__icon login-content-password"
 						:class="isShowPassword ? 'icon-yincangmima' : 'icon-xianshimima'"
-						@click="isShowPassword = !isShowPassword"
-					></i>
+						@click="isShowPassword = !isShowPassword"></i>
 				</template>
 			</el-input>
 		</el-form-item>
 		<el-form-item class="login-animation-four">
-			<el-button
-				type="primary"
-				class="login-content-submit"
-				round
-				@click="submitForm(form, onSignIn)"
-				:loading="loading.signIn"
-			>
+			<el-button type="primary" class="login-content-submit" round @click="submitForm(form, onSignIn)"
+				:loading="loading.signIn">
 				<span>{{ $t('message.account.accountBtnText') }}</span>
 			</el-button>
 		</el-form-item>
@@ -165,6 +149,9 @@ export default defineComponent({
 						state.loading.signIn = false;
 					})
 				})
+			}).catch(() => {
+				// 关闭 loading
+				state.loading.signIn = false;
 			})
 		};
 		// 登录成功后的跳转
@@ -206,6 +193,7 @@ export default defineComponent({
 .login-content-form {
 	margin-top: 20px;
 	margin-bottom: 15px;
+
 	.login-animation-one,
 	.login-animation-two,
 	.login-animation-three,
@@ -216,34 +204,43 @@ export default defineComponent({
 		animation-duration: 0.5s;
 		animation-fill-mode: forwards;
 	}
+
 	.login-animation-one {
 		animation-delay: 0.1s;
 	}
+
 	.login-animation-two {
 		animation-delay: 0.2s;
 	}
+
 	.login-animation-three {
 		animation-delay: 0.3s;
 	}
+
 	.login-animation-four {
 		animation-delay: 0.4s;
 		margin-bottom: 5px;
 	}
+
 	.login-animation-five {
 		animation-delay: 0.5s;
 	}
+
 	.login-content-password {
 		display: inline-block;
 		width: 25px;
 		cursor: pointer;
+
 		&:hover {
 			color: #909399;
 		}
 	}
+
 	.login-content-code {
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
+
 		.login-content-code-img {
 			width: 100%;
 			height: 40px;
@@ -260,12 +257,14 @@ export default defineComponent({
 			transition: all ease 0.2s;
 			border-radius: 4px;
 			user-select: none;
+
 			&:hover {
 				border-color: #c0c4cc;
 				transition: all ease 0.2s;
 			}
 		}
 	}
+
 	.login-content-submit {
 		width: 100%;
 		letter-spacing: 2px;

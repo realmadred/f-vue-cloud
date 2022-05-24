@@ -12,12 +12,17 @@ let loading: any;
 export const NextLoading = {
 	// 创建 loading
 	start: () => {
-		loading = ElLoading.service();
+		if (!loading) {
+			loading = ElLoading.service();
+		}
 	},
 	// 移除 loading
 	done: () => {
 		nextTick(() => {
-			loading.close()
+			if (loading) {
+				loading.close()
+				loading = null
+			}
 		});
 	},
 };

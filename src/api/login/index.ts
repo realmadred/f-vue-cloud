@@ -1,5 +1,5 @@
 import { SYS_API } from '/@/api/constant';
-import request from '/@/utils/request';
+import { notLoadRequest } from '/@/utils/request';
 
 /**
  * 用户登录
@@ -7,7 +7,7 @@ import request from '/@/utils/request';
  * @returns 返回接口数据
  */
 export function signIn(params: object) {
-	return request({
+	return notLoadRequest({
 		url: SYS_API + '/auth/login',
 		method: 'post',
 		data: params,
@@ -19,7 +19,7 @@ export function signIn(params: object) {
  * @returns 无
  */
 export function signOut() {
-	return request({
+	return notLoadRequest({
 		url: SYS_API + '/auth/logout',
 		method: 'post'
 	});
@@ -32,6 +32,6 @@ export function signOut() {
  * @returns 密钥
  */
 export function getKey(publickKey: string) {
-	return request.get(SYS_API + '/auth/getKey?key=' + publickKey);
+	return notLoadRequest.get(SYS_API + '/auth/getKey?key=' + publickKey);
 }
 

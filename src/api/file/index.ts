@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FILE_API, FILE_BUCKET, FILE_EXPIRY } from '/@/api/constant';
-import request from '/@/utils/request';
+import { request } from '/@/utils/request';
 
 // 配置新建一个 axios 实例
 const fileRequest = axios.create({
