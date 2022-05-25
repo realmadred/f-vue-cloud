@@ -4,6 +4,7 @@
 export const SYS_API: string = '/sys'
 export const ORDER_API: string = '/order'
 export const FILE_API: string = '/file'
+export const SELL_API: string = '/sell'
 
 // 管理员id
 export const ADMIN_ID: number = 1

@@ -11,7 +11,7 @@
 				</el-button>
 				<el-button size="small" type="success" class="ml10" @click="onOpenAddDept">
 					<el-icon>
-						<elementFolderAdd />
+						<elementPlus />
 					</el-icon>
 					新增部门
 				</el-button>

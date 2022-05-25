@@ -16,7 +16,7 @@
         </el-button>
         <el-button v-auth="'/sysUser/post'" size="small" type="success" class="ml10" @click="onOpenAddUser">
           <el-icon>
-            <elementFolderAdd />
+            <elementPlus />
           </el-icon>新增用户
         </el-button>
       </div>

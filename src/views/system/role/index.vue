@@ -16,7 +16,7 @@
 				</el-button>
 				<el-button v-auth="'/sysRole/post'" size="small" type="success" class="ml10" @click="onOpenAddRole">
 					<el-icon>
-						<elementFolderAdd />
+						<elementPlus />
 					</el-icon>新增角色
 				</el-button>
 			</div>

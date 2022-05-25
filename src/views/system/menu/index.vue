@@ -11,7 +11,7 @@
 					@click="onOpenAddMenu"
 				>
 					<el-icon>
-						<elementFolderAdd />
+						<elementPlus />
 					</el-icon>新增菜单
 				</el-button>
 			</div>

@@ -7,6 +7,7 @@
 	border-top-right-radius: 3px;
 	z-index: 2 !important;
 }
+
 .w-e-text-container {
 	border: 1px solid #ebeef5 !important;
 	border-top: none !important;
@@ -20,9 +21,21 @@
 #screenShotContainer {
 	z-index: 9998 !important;
 }
+
 #toolPanel {
 	height: 42px !important;
 }
+
 #optionPanel {
 	height: 37px !important;
 }
+
+/* 自定义form样式
+------------------------------- */
+.input-number-len2 {
+	width: 217px;
+	.el-input>input{
+		text-align: left;
+	}
+}
+
