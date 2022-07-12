@@ -13,6 +13,7 @@
 
 <script>
 import { toRefs, reactive, onMounted, ref } from 'vue';
+import { ElMessage } from 'element-plus';
 import templateXml from "./data/template";
 import BpmnModeler from 'jeeplus-bpmn/lib/Modeler'
 import customTranslate from "./data/translate/customTranslate.js";
@@ -37,13 +38,15 @@ export default {
 
     const state = reactive({
       bpmnModeler: null,
-      initTemplate: "",
-      initData: {}
+      initTemplate: '',
+      initData: { key: '', name: '流程', xml: '' }
     });
 
     const init = () => {
       // 支持activiti和flowable
       // 创建Bpmn对象
+      console.log('init')
+      
       state.bpmnModeler = new BpmnModeler({
         container: bpmnViewer.value,
         additionalModules: [
@@ -54,25 +57,20 @@ export default {
         moddleExtensions: getModdleExtensions
       });
 
-      /*let _tag = document.getElementsByClassName("djs-overlay-container")[0];
-      if (_tag) {
-        _tag.style.width = "100%";
-        _tag.style.height = "100%";
-      }*/
-
       // 初始化建模器内容
       initDiagram(state.initTemplate);
     };
     const initDiagram = (xml) => {
       state.bpmnModeler.importXML(xml, err => {
         if (err) {
-          // this.$Message.error("打开模型出错,请确认该模型符合Bpmn2.0规范");
+          ElMessage.error("打开模型出错,请确认该模型符合Bpmn2.0规范");
         }
-        let _tag = document.getElementsByTagName("svg")[0];
-        if (_tag) {
-          _tag.style.width = "100%";
-          _tag.style.height = "700px";
-        }
+        // let _tag = document.getElementsByTagName("svg")[0];
+        
+        // if (_tag) {
+        //   _tag.style.width = "100%";
+        //   _tag.style.height = "520px";
+        // }
       });
     };
     const handleExportBpmn = () => {
@@ -172,6 +170,7 @@ export default {
       processSave,
       restart,
       handleExportSvg,
+      bpmnViewer,
       ...toRefs(state),
     };
   },

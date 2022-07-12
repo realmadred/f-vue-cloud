@@ -6,10 +6,8 @@
 		<element-table :url="url" :page-size="10" :columns="columns" ref="elementTable"></element-table>
 
 		<el-dialog title="流程图" v-model="dialogVisible" width="1100px">
-			<slot name="-" style="border: none;padding: 0px;margin: 0px;">
-				<vue-bpmn style="overflow: hidden;height: 700px;" product="flowable" @processSave="processSave">
-				</vue-bpmn>
-			</slot>
+			<vue-bpmn style="overflow: hidden;height: 520px;" product="flowable" @processSave="processSave">
+			</vue-bpmn>
 		</el-dialog>
 	</div>
 </template>
@@ -48,7 +46,7 @@ export default {
 					name: "发布",
 					type: "text",
 					click: (row) => {
-						console.log('row',row)
+						console.log('row', row)
 					},
 					hidden: () => {
 					}
@@ -56,7 +54,7 @@ export default {
 					name: "删除",
 					type: "text",
 					click: (row) => {
-						console.log('row',row)
+						console.log('row', row)
 					}
 				}]
 			}]

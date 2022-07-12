@@ -7,6 +7,11 @@ import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
 
 import ElementPlus from 'element-plus';
+import 'bpmn-js/dist/assets/diagram-js.css'
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
+import './components/bpmn/assets/css/vue-bmpn.css'
 import 'element-plus/dist/index.css';
 import '/@/theme/index.scss';
 import mitt from 'mitt';

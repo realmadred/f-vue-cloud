@@ -44,3 +44,8 @@
 div.el-pagination > ul > li.btn-quicknext + .number {
 	display: none;
 }
+
+.el-dialog > .el-dialog__body {
+    margin: 10px;
+    border: none;
+}
