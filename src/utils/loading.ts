@@ -2,6 +2,9 @@ import { nextTick } from 'vue';
 import { ElLoading } from 'element-plus'
 
 let loading: any;
+// 延迟200ms，如果在延迟时间调用完成了，就不加载loading，防止接口太快屏幕一闪
+const delay = 200;
+let closed = false;
 
 /**
  * 页面全局 Loading
@@ -13,16 +16,23 @@ export const NextLoading = {
 	// 创建 loading
 	start: () => {
 		if (!loading) {
-			loading = ElLoading.service();
+			// 设置没有关闭
+			closed = false
+			setTimeout(() => {
+				// 指定延迟后还没有调用关闭
+				if (!closed) {
+					loading = ElLoading.service();
+				}
+			}, delay)
 		}
 	},
 	// 移除 loading
 	done: () => {
-		nextTick(() => {
-			if (loading) {
-				loading.close()
-				loading = null
-			}
-		});
+		// 表示以及调用关闭了
+		closed = true
+		if (loading) {
+			loading.close()
+			loading = null
+		}
 	},
 };

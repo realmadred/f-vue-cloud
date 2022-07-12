@@ -18,6 +18,8 @@ export default {
 		limitsFrontEndBtn: '按钮权限',
 		limitsBackEnd: '后端控制',
 		limitsBackEndEndPage: '页面权限',
+		flow: '工作流',
+		flowDesign: '流程设计',
 		menu: '菜单嵌套',
 		menu1: '菜单1',
 		menu11: '菜单11',

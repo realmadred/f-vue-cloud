@@ -48,7 +48,7 @@ export default defineComponent({
 		},
 		// 动画延迟时间 (s)
 		delay: {
-			type: [Number, String],
+			type: [Number],
 			default: () => 1,
 		},
 		// 滚动速率 (px/s)

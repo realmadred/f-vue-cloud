@@ -34,8 +34,13 @@
 ------------------------------- */
 .input-number-len2 {
 	width: 217px;
-	.el-input>input{
+
+	.el-input>input {
 		text-align: left;
 	}
 }
 
+/*分页组件不显示最大页数*/ 
+div.el-pagination > ul > li.btn-quicknext + .number {
+	display: none;
+}
