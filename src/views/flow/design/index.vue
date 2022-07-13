@@ -5,14 +5,14 @@
 		</div>
 		<element-table :url="url" :page-size="10" :columns="columns" ref="elementTable"></element-table>
 
-		<el-dialog title="流程图" v-model="dialogVisible" width="1100px">
+		<el-dialog title="流程图" v-model="dialogVisible" width="80%">
 			<vue-bpmn style="overflow: hidden;height: 520px;" product="flowable" @processSave="processSave">
 			</vue-bpmn>
 		</el-dialog>
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import { toRefs, reactive, onMounted } from 'vue';
 import ElementTable from "/@/components/element/ElementTable.vue";
 import VueBpmn from "/@/components/bpmn/VueBpmn.vue";
@@ -65,8 +65,8 @@ export default {
 			state.dialogVisible = true;
 		};
 
-		const processSave = (data) => {
-			console.log('save')
+		const processSave = (data: any) => {
+			console.log('save', data)
 		};
 
 		const deploy = () => {

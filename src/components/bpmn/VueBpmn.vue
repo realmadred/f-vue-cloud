@@ -11,8 +11,8 @@
   </div>
 </template>
 
-<script>
-import { toRefs, reactive, onMounted, ref } from 'vue';
+<script setup>
+import { defineProps, reactive, onMounted, ref, defineEmits, toRefs } from 'vue';
 import { ElMessage } from 'element-plus';
 import templateXml from "./data/template";
 import BpmnModeler from 'jeeplus-bpmn/lib/Modeler'
@@ -24,157 +24,143 @@ import flowableModdle from './data/flowable.json'
 import './assets/css/vue-bmpn.css'
 import './assets/css/font-awesome.min.css'
 
-export default {
-  name: "VueBpmn",
-  props: {
-    product: String
-  },
-  components: {
-    VueHeader, BpmnPanel
-  },
-  setup(props) {
+const props = defineProps({
+  product: String
+})
 
-    const bpmnViewer = ref();
+const emit = defineEmits(['processSave'])
 
-    const state = reactive({
-      bpmnModeler: null,
-      initTemplate: '',
-      initData: { key: '', name: '流程', xml: '' }
-    });
+const bpmnViewer = ref();
 
-    const init = () => {
-      // 支持activiti和flowable
-      // 创建Bpmn对象
-      console.log('init')
-      
-      state.bpmnModeler = new BpmnModeler({
-        container: bpmnViewer.value,
-        additionalModules: [
-          {
-            translate: ['value', customTranslate]
-          }
-        ],
-        moddleExtensions: getModdleExtensions
-      });
+const state = reactive({
+  bpmnModeler: null,
+  initTemplate: '',
+  initData: { key: '', name: '流程', xml: '' }
+});
 
-      // 初始化建模器内容
-      initDiagram(state.initTemplate);
-    };
-    const initDiagram = (xml) => {
-      state.bpmnModeler.importXML(xml, err => {
-        if (err) {
-          ElMessage.error("打开模型出错,请确认该模型符合Bpmn2.0规范");
-        }
-        // let _tag = document.getElementsByTagName("svg")[0];
-        
-        // if (_tag) {
-        //   _tag.style.width = "100%";
-        //   _tag.style.height = "520px";
-        // }
-      });
-    };
-    const handleExportBpmn = () => {
-      state.bpmnModeler.saveXML(function (err, xml) {
-        if (err) {
-          console.error(err)
-        }
-        let { filename, href } = setEncoded('BPMN', xml);
-        if (href && filename) {
-          let a = document.createElement('a');
-          a.download = filename; //指定下载的文件名
-          a.href = href; //  URL对象
-          a.click(); // 模拟点击
-          URL.revokeObjectURL(a.href); // 释放URL 对象
-        }
-      });
-    };
-    const handleExportSvg = () => {
-      state.bpmnModeler.saveSVG(function (err, svg) {
-        if (err) {
-          console.error(err)
-        }
-        let { filename, href } = setEncoded('SVG', svg);
-        if (href && filename) {
-          let a = document.createElement('a');
-          a.download = filename;
-          a.href = href;
-          a.click();
-          URL.revokeObjectURL(a.href);
-        }
-      });
-    };
-    const setEncoded = (type, data) => {
-      const encodedData = encodeURIComponent(data);
-      if (data) {
-        if (type === 'XML') {
-          return {
-            filename: 'diagram.bpmn20.xml',
-            href: "data:application/bpmn20-xml;charset=UTF-8," + encodedData,
-            data: data
-          }
-        }
-        if (type === 'BPMN') {
-          return {
-            filename: 'diagram.bpmn',
-            href: "data:application/bpmn20-xml;charset=UTF-8," + encodedData,
-            data: data
-          }
-        }
-        if (type === 'SVG') {
-          state.initData.svg = data;
-          return {
-            filename: 'diagram.svg',
-            href: "data:application/text/xml;charset=UTF-8," + encodedData,
-            data: data
-          }
-        }
+
+const { bpmnModeler, initTemplate, initData } = toRefs(state)
+
+const init = () => {
+  // 支持activiti和flowable
+  // 创建Bpmn对象
+  state.bpmnModeler = new BpmnModeler({
+    container: bpmnViewer.value,
+    additionalModules: [
+      {
+        translate: ['value', customTranslate]
       }
-    };
-    const processSave = (data) => {
-      data.procId = state.initData.key;
-      data.name = state.initData.name;
-      this.$emit("processSave", data);
-    };
+    ],
+    moddleExtensions: getModdleExtensions
+  });
 
-    const restart = () => {
-      let processId = new Date().getTime();
-      state.initTemplate = templateXml.initTemplate(processId)
-      state.initData = { key: "process" + processId, name: "流程" + processId, xml: state.initTemplate }
-      initDiagram(state.initTemplate)
-    };
-    const getModdleExtensions = () => {
-      let moddleExtensions = {};
-      if (props.product == "flowable") {
-        moddleExtensions = {
-          flowable: flowableModdle
-        }
-      }
-      if (props.product == "activiti") {
-        moddleExtensions = {
-          activiti: activitiModele
-        }
-      }
-      return moddleExtensions;
+  // 初始化建模器内容
+  initDiagram(state.initTemplate);
+};
+const initDiagram = (xml) => {
+  state.bpmnModeler.importXML(xml, err => {
+    if (err) {
+      ElMessage.error("打开模型出错,请确认该模型符合Bpmn2.0规范");
     }
+    // let _tag = document.getElementsByTagName("svg")[0];
 
-    // 页面加载时
-    onMounted(() => {
-      let processId = new Date().getTime();
-      state.initTemplate = templateXml.initTemplate(processId)
-      state.initData = { key: "process" + processId, name: "流程" + processId, xml: state.initTemplate }
-      init();
-    });
+    // if (_tag) {
+    //   _tag.style.width = "100%";
+    //   _tag.style.height = "520px";
+    // }
+  });
+};
+const handleExportBpmn = () => {
+  state.bpmnModeler.saveXML(function (err, xml) {
+    if (err) {
+      console.error(err)
+    }
+    let { filename, href } = setEncoded('BPMN', xml);
+    if (href && filename) {
+      let a = document.createElement('a');
+      a.download = filename; //指定下载的文件名
+      a.href = href; //  URL对象
+      a.click(); // 模拟点击
+      URL.revokeObjectURL(a.href); // 释放URL 对象
+    }
+  });
+};
+const handleExportSvg = () => {
+  state.bpmnModeler.saveSVG(function (err, svg) {
+    if (err) {
+      console.error(err)
+    }
+    let { filename, href } = setEncoded('SVG', svg);
+    if (href && filename) {
+      let a = document.createElement('a');
+      a.download = filename;
+      a.href = href;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+  });
+};
+const setEncoded = (type, data) => {
+  const encodedData = encodeURIComponent(data);
+  if (data) {
+    if (type === 'XML') {
+      return {
+        filename: 'diagram.bpmn20.xml',
+        href: "data:application/bpmn20-xml;charset=UTF-8," + encodedData,
+        data: data
+      }
+    }
+    if (type === 'BPMN') {
+      return {
+        filename: 'diagram.bpmn',
+        href: "data:application/bpmn20-xml;charset=UTF-8," + encodedData,
+        data: data
+      }
+    }
+    if (type === 'SVG') {
+      state.initData.svg = data;
+      return {
+        filename: 'diagram.svg',
+        href: "data:application/text/xml;charset=UTF-8," + encodedData,
+        data: data
+      }
+    }
+  }
+};
+const processSave = (data) => {
+  data.procId = state.initData.key;
+  data.name = state.initData.name;
+  emit("processSave", data);
+};
 
-    return {
-      handleExportBpmn,
-      processSave,
-      restart,
-      handleExportSvg,
-      bpmnViewer,
-      ...toRefs(state),
-    };
-  },
+const restart = () => {
+  let processId = new Date().getTime();
+  state.initTemplate = templateXml.initTemplate(processId)
+  state.initData = { key: "process" + processId, name: "流程" + processId, xml: state.initTemplate }
+  initDiagram(state.initTemplate)
+};
+const getModdleExtensions = () => {
+  let moddleExtensions = {};
+  if (props.product == "flowable") {
+    moddleExtensions = {
+      flowable: flowableModdle
+    }
+  }
+  if (props.product == "activiti") {
+    moddleExtensions = {
+      activiti: activitiModele
+    }
+  }
+  return moddleExtensions;
 }
+
+// 页面加载时
+onMounted(() => {
+  let processId = new Date().getTime();
+  state.initTemplate = templateXml.initTemplate(processId)
+  state.initData = { key: "process" + processId, name: "流程" + processId, xml: state.initTemplate }
+  init();
+});
 </script>
 
 <style scoped>

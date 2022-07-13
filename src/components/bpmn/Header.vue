@@ -39,106 +39,89 @@
   </div>
 </template>
 
-<script>
-import { toRefs, reactive, onMounted } from 'vue';
-export default {
-  name: "ViewerHeader",
-  props: {
-    processData: {
-      type: Object
-    },
-    modeler: {
-      type: Object
-    }
+<script setup >
+import { toRefs, reactive, defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  processData: {
+    type: Object
   },
-  components: {},
+  modeler: {
+    type: Object
+  }
+})
 
-  setup(props,{ emit }) {
+const emit = defineEmits(['processSave', 'restart', 'handleExportSvg', 'handleExportBpmn'])
 
-    const state = reactive({
-      scale: 1.0,
-      canRedo: false
-    });
+const state = reactive({
+  scale: 1.0,
+  canRedo: false
+});
 
-    const deploy = () => {
-      let _xml;
-      let _svg;
-      props.modeler.saveXML((err, xml) => {
-        if (err) {
-          console.error(err)
-        }
-        _xml = xml;
-      })
-      props.modeler.saveSVG((err, svg) => {
-        if (err) {
-          console.error(err)
-        }
-        _svg = svg;
-      })
-      // post
-      console.log('xml',_xml,_svg)
-      
-    };
-    const save = () => {
-      let _xml;
-      let _svg;
-      props.modeler.saveXML((err, xml) => {
-        if (err) {
-          console.error(err)
-        }
-        _xml = xml;
-      })
-      props.modeler.saveSVG((err, svg) => {
-        if (err) {
-          console.error(err)
-        }
-        _svg = svg;
-      })
-      emit("processSave", { "xmlStr": _xml, "svgStr": _svg });
-    };
-    const reset = () => {
-      emit('restart')
-    };
-    const downloadSvg = () => {
-      emit("handleExportSvg")
-    };
-    const downloadBpmn = () => {
-      emit("handleExportBpmn");
-    };
-    const undo = () => {
-      props.modeler.get('commandStack').undo();
-      state.canRedo = props.modeler.get('commandStack').canRedo();
-    };
-    const redo = () => {
-      if (!state.canRedo) {
-        return;
-      }
-      props.modeler.get('commandStack').redo()
-      state.canRedo = props.modeler.get('commandStack').canRedo();
-    };
-    const zoom = (val) => {
-      let newScale = !val ? 1.0 : ((state.scale + val) <= 0.2) ? 0.2 : (state.scale + val);
-      props.modeler.get('canvas').zoom(newScale);
-      state.scale = newScale;
+const { scale, canRedo } = toRefs(state)
+
+const deploy = () => {
+  let _xml;
+  let _svg;
+  props.modeler.saveXML((err, xml) => {
+    if (err) {
+      console.error(err)
     }
+    _xml = xml;
+  })
+  props.modeler.saveSVG((err, svg) => {
+    if (err) {
+      console.error(err)
+    }
+    _svg = svg;
+  })
+  // post
+  console.log('xml', _xml, _svg)
 
-    // 页面加载时
-    onMounted(() => {
-    });
-
-    return {
-      deploy,
-      downloadSvg,
-      downloadBpmn,
-      save,
-      reset,
-      undo,
-      redo,
-      zoom,
-      ...toRefs(state),
-    };
-  },
+};
+const save = () => {
+  let _xml;
+  let _svg;
+  props.modeler.saveXML((err, xml) => {
+    if (err) {
+      console.error(err)
+    }
+    _xml = xml;
+  })
+  props.modeler.saveSVG((err, svg) => {
+    if (err) {
+      console.error(err)
+    }
+    _svg = svg;
+  })
+  emit("processSave", { "xmlStr": _xml, "svgStr": _svg });
+};
+const reset = () => {
+  emit('restart')
+};
+const downloadSvg = () => {
+  emit("handleExportSvg")
+};
+const downloadBpmn = () => {
+  emit("handleExportBpmn");
+};
+const undo = () => {
+  props.modeler.get('commandStack').undo();
+  state.canRedo = props.modeler.get('commandStack').canRedo();
+};
+const redo = () => {
+  if (!state.canRedo) {
+    return;
+  }
+  props.modeler.get('commandStack').redo()
+  state.canRedo = props.modeler.get('commandStack').canRedo();
+};
+const zoom = (val) => {
+  let newScale = !val ? 1.0 : ((state.scale + val) <= 0.2) ? 0.2 : (state.scale + val);
+  props.modeler.get('canvas').zoom(newScale);
+  state.scale = newScale;
 }
+
 </script>
 
 <style scoped>
