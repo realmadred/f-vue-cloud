@@ -5,8 +5,8 @@
 		</div>
 		<element-table :url="url" :page-size="10" :columns="columns" ref="elementTable"></element-table>
 
-		<el-dialog title="流程图" v-model="dialogVisible" width="80%">
-			<vue-bpmn style="overflow: hidden;height: 520px;" product="flowable" @processSave="processSave">
+		<el-dialog title="流程图" v-model="dialogVisible" :fullscreen="true">
+			<vue-bpmn product="flowable" @processSave="processSave">
 			</vue-bpmn>
 		</el-dialog>
 	</div>

@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="bpmn-viewer">
-      <vue-header class="bpmn-viewer-header" :processData="initData" :modeler="bpmnModeler" @restart="restart"
-        @handleExportSvg="handleExportSvg" @handleExportBpmn="handleExportBpmn" @processSave="processSave"></vue-header>
+      <BpmnHeader class="bpmn-viewer-header" :processData="initData" :modeler="bpmnModeler" @restart="restart"
+        @handleExportSvg="handleExportSvg" @handleExportBpmn="handleExportBpmn" @processSave="processSave"></BpmnHeader>
       <div class="bpmn-viewer-container">
         <div class="bpmn-viewer-content" ref="bpmnViewer"></div>
       </div>
     </div>
-    <bpmn-panel v-if="bpmnModeler" :modeler="bpmnModeler" :process="initData"></bpmn-panel>
+    <BpmnPanel v-if="bpmnModeler" :modeler="bpmnModeler" :process="initData"></BpmnPanel>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import { ElMessage } from 'element-plus';
 import templateXml from "./data/template";
 import BpmnModeler from 'jeeplus-bpmn/lib/Modeler'
 import customTranslate from "./data/translate/customTranslate.js";
-import VueHeader from "./Header.vue";
+import BpmnHeader from "./Header.vue";
 import BpmnPanel from "./panel/index.vue";
 import activitiModele from './data/activiti.json'
 import flowableModdle from './data/flowable.json'
@@ -39,7 +39,7 @@ const state = reactive({
 });
 
 
-const { bpmnModeler, initTemplate, initData } = toRefs(state)
+const { bpmnModeler, initData } = toRefs(state)
 
 const init = () => {
   // 支持activiti和flowable
@@ -62,12 +62,6 @@ const initDiagram = (xml) => {
     if (err) {
       ElMessage.error("打开模型出错,请确认该模型符合Bpmn2.0规范");
     }
-    // let _tag = document.getElementsByTagName("svg")[0];
-
-    // if (_tag) {
-    //   _tag.style.width = "100%";
-    //   _tag.style.height = "520px";
-    // }
   });
 };
 const handleExportBpmn = () => {

@@ -2,13 +2,13 @@
   <div>
     <el-form :inline="false" :model="localProcessData" label-width="100px" size="small" label-position="left">
       <el-form-item label="流程ID">
-        <el-input v-model="localProcessData.key" @input="updateId"></el-input>
+        <el-input v-model="localProcessData.key" @change="updateId"></el-input>
       </el-form-item>
       <el-form-item label="流程名称">
-        <el-input v-model="localProcessData.name" @input="updateName"></el-input>
+        <el-input v-model="localProcessData.name" @change="updateName"></el-input>
       </el-form-item>
       <el-form-item label="流程描述">
-        <el-input v-model="localProcessData.description" @input="updateDesc"></el-input>
+        <el-input v-model="localProcessData.description" @change="updateDesc"></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -37,12 +37,14 @@ const state = reactive({
 const { localProcessData } = toRefs(state)
 
 const updateId = (name) => {
+  console.log('id',name)
   props.modeler.get("modeling").updateProperties(props.element, { id: name });
 }
 const updateName = (name) => {
   props.modeler.get("modeling").updateProperties(props.element, { name: name });
 }
 const updateDesc = (name) => {
+  console.log('desc',name)
   let doc = props.modeler.get("bpmnFactory").create("bpmn:Documentation", { text: name });
   props.modeler.get("modeling").updateProperties(props.element, { documentation: [doc] });
 }

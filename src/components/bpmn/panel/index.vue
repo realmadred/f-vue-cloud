@@ -1,20 +1,16 @@
 <template>
   <div class="bpmn-panel">
-    <el-container>
-      <el-header height="45px">
-        <div class="config-tab" :class="{ active: configTab == 'node' }" @click="handleConfigSelect('node')">节点属性</div>
-        <div class="config-tab" :class="{ active: configTab == 'process' }" @click="handleConfigSelect('process')">流程属性
-        </div>
-      </el-header>
-      <el-main>
-        <node-property-panel v-if="configTab == 'node'" :modeler="modeler" @modifyConfigTab="modifyConfigTab"
-          :nodeElement="nodeElement" :formData="formData" @modifyFormData="modifyFormData"></node-property-panel>
-        <process-property-panel v-if="configTab == 'process'" :modeler="modeler" :process-data="process"
-          :element="element"></process-property-panel>
-      </el-main>
-    </el-container>
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="节点属性" name="node">
+        <node-property-panel :modeler="modeler" :nodeElement="nodeElement" :formData="formData"
+          @modifyFormData="modifyFormData"></node-property-panel>
+      </el-tab-pane>
+      <el-tab-pane label="流程属性" name="process">
+        <process-property-panel :modeler="modeler" :process-data="process" :element="element"></process-property-panel>
+      </el-tab-pane>
+    </el-tabs>
     <!-- 流程属性 -->
-    <el-collapse v-if="panelIndex == 1" accordion>
+    <!-- <el-collapse v-if="panelIndex == 1" accordion>
       <el-collapse-item name="1">
         <template slot="title">
           基本设置<i class="header-icon el-icon-info"></i>
@@ -77,10 +73,10 @@
           </el-form>
         </div>
       </el-collapse-item>
-    </el-collapse>
+    </el-collapse> -->
 
     <!-- 开始节点 -->
-    <el-collapse v-if="panelIndex == 1" accordion>
+    <!-- <el-collapse v-if="panelIndex == 1" accordion>
       <el-collapse-item name="1">
         <template slot="title">
           基本设置<i class="header-icon el-icon-info"></i>
@@ -145,24 +141,25 @@
           </el-table>
         </div>
       </el-collapse-item>
-    </el-collapse>
+    </el-collapse> -->
   </div>
 </template>
 
 <script setup>
-import { toRefs, reactive, defineProps, defineEmits, onMounted } from 'vue';
+import { toRefs, reactive, defineProps, defineEmits, onMounted, ref } from 'vue';
 import NodePropertyPanel from "./NodePropertyPanel.vue";
 import ProcessPropertyPanel from "./ProcessPropertyPanel.vue";
 
+const activeName = ref('node')
+
 const state = reactive({
-  configTab: 'node',
   panelIndex: 8,
-  element: null,
+  element: {},
   nodeElement: {},
   formData: {}
 })
 
-const { configTab, panelIndex, element, nodeElement, formData } = toRefs(state)
+const { panelIndex, element, nodeElement, formData } = toRefs(state)
 
 const props = defineProps({
   modeler: {
@@ -176,14 +173,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['updateXml'])
-
-onMounted(() => {
-  handleModeler();
-})
-
-const handleConfigSelect = (value) => {
-  state.configTab = value;
-}
 
 const handleModeler = () => {
   props.modeler.on("root.added", e => {
@@ -203,7 +192,6 @@ const handleModeler = () => {
     if (!element) {
       return;
     }
-    modifyConfigTab(element);
     handleFormData(element);
   })
   props.modeler.on("element.changed", e => {
@@ -216,9 +204,7 @@ const handleModeler = () => {
   props.modeler.on("element.click", e => {
     const { element } = e;
     if (element.type == props.modeler._definitions.rootElements[0].$type) {
-      modifyConfigTab(0)
     } else {
-      modifyConfigTab(1)
       if (element.type == "bpmn:UserTask") {
         let _businessObject = element.businessObject;
         if (_businessObject.assignee) {
@@ -232,13 +218,7 @@ const handleModeler = () => {
 const isImplicitRoot = (element) => {
   return element.id === '__implicitroot';
 }
-const modifyConfigTab = (element) => {
-  let configTab = 'node'
-  if (!element) {
-    configTab = 'process'
-  }
-  state.configTab = configTab
-}
+
 const handleFormData = (element) => {
   if (!element.id) {
     return;
@@ -260,6 +240,10 @@ const modifyFormData = (data) => {
   state.formData.assignee = data.assignee;
   state.formData.userType = data.userType;
 }
+
+onMounted(() => {
+  handleModeler();
+})
 </script>
 
 <style scoped>

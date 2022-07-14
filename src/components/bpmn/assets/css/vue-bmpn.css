@@ -21,7 +21,6 @@
     background: #f8f8f8;
 }
 .bpmn-viewer-container{
-    padding: 10px;
     height: 100%;
 }
 .bpmn-viewer-content{
@@ -33,9 +32,6 @@
 .el-collapse-item__header{
     padding-left: 15px;
 }
-.djs-direct-editing-parent{
-    /*display: none;*/
-}
 .bpmn-panel {
     width: 370px;
     border: 1px solid #eeeeee;
@@ -45,12 +41,7 @@
     width: 100%;
 }
 .el-dialog > .el-dialog__header{
-    padding: 5px 20px  ;
-}
-.el-dialog > .el-dialog__body{
-    padding: 0px;
-    margin: 0 20px;
-    border: 1px solid #cccccc;
+    padding: 0 ;
 }
 .default-undo{
     color: #c0c4cc;
