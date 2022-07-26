@@ -2,11 +2,20 @@
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
     <el-collapse v-model="activeTab">
       <el-collapse-item name="base">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-info"></i>常规</div>
-        <element-base-info :id-edit-disabled="idEditDisabled" :business-object="elementBusinessObject" :type="elementType" />
+        <template #title>
+          <el-icon>
+            <elementInfoFilled />
+          </el-icon> 常规
+        </template>
+        <element-base-info :id-edit-disabled="idEditDisabled" :business-object="elementBusinessObject"
+          :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-comment"></i>消息与信号</div>
+       <template #title>
+          <el-icon>
+            <elementChatDotRound />
+          </el-icon> 消息与信号
+        </template>
         <signal-and-massage />
       </el-collapse-item>
       <el-collapse-item name="condition" v-if="conditionFormVisible" key="condition">
@@ -26,7 +35,11 @@
         <element-multi-instance :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="listeners" key="listeners">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>执行监听器</div>
+          <template #title>
+          <el-icon>
+            <elementBellFilled />
+          </el-icon> 执行监听器
+        </template>
         <element-listeners :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="taskListeners" v-if="elementType === 'UserTask'" key="taskListeners">
@@ -34,11 +47,19 @@
         <user-task-listeners :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="extensions" key="extensions">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-circle-plus"></i>扩展属性</div>
+        <template #title>
+          <el-icon>
+            <elementCirclePlusFilled />
+          </el-icon> 扩展属性
+        </template>
         <element-properties :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="other" key="other">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-promotion"></i>其他</div>
+        <template #title>
+          <el-icon>
+            <elementMoreFilled />
+          </el-icon> 其他
+        </template>
         <element-other-config :id="elementId" />
       </el-collapse-item>
     </el-collapse>
@@ -186,3 +207,133 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.process-panel__container {
+  box-sizing: border-box;
+  padding: 0 8px;
+  border-left: 1px solid #eeeeee;
+  box-shadow: 0 0 8px #cccccc;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.panel-tab__title {
+  font-weight: 600;
+  padding: 0 8px;
+  font-size: 1.1em;
+  line-height: 1.2em;
+
+  i {
+    margin-right: 8px;
+    font-size: 1.2em;
+  }
+}
+
+.panel-tab__content {
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid #eeeeee;
+  padding: 8px 16px;
+
+  .panel-tab__content--title {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+
+    span {
+      flex: 1;
+      text-align: left;
+    }
+  }
+}
+
+.element-property {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin: 8px 0;
+
+  .element-property__label {
+    display: block;
+    width: 90px;
+    text-align: right;
+    overflow: hidden;
+    padding-right: 12px;
+    line-height: 32px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .element-property__value {
+    flex: 1;
+    line-height: 32px;
+  }
+
+  .el-form-item {
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 18px;
+  }
+}
+
+.list-property {
+  flex-direction: column;
+
+  .element-listener-item {
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: 16px auto 32px 32px;
+    grid-column-gap: 8px;
+  }
+
+  .element-listener-item+.element-listener-item {
+    margin-top: 8px;
+  }
+}
+
+.listener-filed__title {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+
+  span {
+    width: 200px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+.element-drawer__button {
+  margin-top: 8px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+.element-drawer__button>.el-button {
+  width: 100%;
+}
+
+.el-collapse-item__content {
+  padding-bottom: 0;
+}
+
+.el-input.is-disabled .el-input__inner {
+  color: #999999;
+}
+
+.el-form-item.el-form-item--mini {
+  margin-bottom: 0;
+
+  &+.el-form-item {
+    margin-top: 16px;
+  }
+}
+</style>

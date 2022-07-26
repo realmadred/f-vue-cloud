@@ -89,8 +89,8 @@ export default {
 
 <style scoped lang="scss">
 .my-process-palette {
-  box-sizing: border-box;
   padding: 8px;
+  width: 120px;
   .custom-button {
     box-sizing: border-box;
     padding: 4px 8px;
