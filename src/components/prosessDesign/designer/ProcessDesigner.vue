@@ -4,11 +4,12 @@
       <slot name="control-header"></slot>
       <template v-if="!$slots['control-header']">
         <el-button-group key="file-control">
-          <el-button :size="headerButtonSize" :type="headerButtonType" 
-            @click="$refs.refFile.click()"><el-icon>
-                <elementFolderAdd />
-              </el-icon>打开文件</el-button>
-          <el-dropdown >
+          <el-button :size="headerButtonSize" :type="headerButtonType" @click="$refs.refFile.click()">
+            <el-icon>
+              <elementFolderAdd />
+            </el-icon>打开文件
+          </el-button>
+          <el-dropdown>
             <el-button type="primary" :size="headerButtonSize">
               下载文件<el-icon>
                 <elementDownload />
@@ -128,13 +129,15 @@
     <div class="my-process-designer__container">
       <div class="my-process-designer__canvas" ref="bpmn-canvas"></div>
     </div>
-    <el-dialog title="预览" width="60%" :visible.sync="previewModelVisible" append-to-body destroy-on-close>
-      <highlightjs :language="previewType" :code="previewResult" />
+    <el-dialog title="预览" width="60%" v-model="previewModelVisible" append-to-body destroy-on-close>
+      <hljs :language="previewType" :code="previewResult" />
     </el-dialog>
   </div>
 </template>
 
 <script>
+import hljs from "../highlight";
+import "highlight.js/styles/atom-one-dark-reasonable.css";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import DefaultEmptyXML from "./plugins/defaultEmpty";
 // 翻译方法
@@ -145,18 +148,15 @@ import tokenSimulation from "bpmn-js-token-simulation";
 // 标签解析构建器
 // import bpmnPropertiesProvider from "bpmn-js-properties-panel/lib/provider/bpmn";
 // 标签解析 Moddle
-import camundaModdleDescriptor from "./plugins/descriptor/camundaDescriptor.json";
-import activitiModdleDescriptor from "./plugins/descriptor/activitiDescriptor.json";
 import flowableModdleDescriptor from "./plugins/descriptor/flowableDescriptor.json";
 // 标签解析 Extension
-// import camundaModdleExtension from "./plugins/extension-moddle/camunda";
-// import activitiModdleExtension from "./plugins/extension-moddle/activiti";
 import flowableModdleExtension from "./plugins/extension-moddle/flowable";
 // 引入json转换与高亮
 import X2JS from "x2js";
 
 export default {
   name: "MyProcessDesigner",
+  components: { hljs },
   componentName: "MyProcessDesigner",
   props: {
     value: String, // xml 字符串
@@ -274,28 +274,26 @@ export default {
         }
       }
 
-      // 根据需要的 "流程类型" 设置 对应的解析文件
-      // if (this.prefix === "activiti") {
-      //   Extensions.activiti = activitiModdleDescriptor;
-      // }
       if (this.prefix === "flowable") {
         Extensions.flowable = flowableModdleDescriptor;
       }
-      // if (this.prefix === "camunda") {
-      //   Extensions.camunda = camundaModdleDescriptor;
-      // }
 
       return Extensions;
     }
   },
   mounted() {
     this.initBpmnModeler();
-    // this.createNewDiagram(this.value);
+    this.createNewDiagram(this.value);
     // this.$once("hook:beforeDestroy", () => {
     //   if (this.bpmnModeler) this.bpmnModeler.destroy();
     //   this.$emit("destroy", this.bpmnModeler);
     //   this.bpmnModeler = null;
     // });
+  },
+  beforeUnmount() {
+    if (this.bpmnModeler) this.bpmnModeler.destroy();
+    this.$emit("destroy", this.bpmnModeler);
+    this.bpmnModeler = null;
   },
   methods: {
     initBpmnModeler() {

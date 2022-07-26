@@ -56,7 +56,7 @@
 
 <script>
 import './theme/process-designer.scss';
-// import translations from "@/translations";
+import translations from "./translations";
 // 自定义渲染（隐藏了 label 标签）
 import CustomRenderer from "./custom-renderer";
 // 自定义元素选中时的弹出菜单（修改 默认任务 为 用户任务）
@@ -95,7 +95,7 @@ export default {
       controlDrawerVisible: false,
       infoTipVisible: false,
       pageMode: false,
-      // translationsSelf: translations,
+      translationsSelf: translations,
       controlForm: {
         processId: "",
         processName: "",
@@ -132,7 +132,7 @@ export default {
 
         const rootElement = canvas.getRootElement();
         Log.prettyPrimary("Process Id:", rootElement.id);
-        Log.prettyPrimary("Process Name:", rootElement.businessObject.name);
+        Log.prettyPrimary("Process Name:", rootElement.businessObject);
       }, 10);
     },
     reloadProcessDesigner(notDeep) {

@@ -106,7 +106,7 @@ export default {
     },
     width: {
       type: Number,
-      default: 480
+      default: 600
     },
     idEditDisabled: {
       type: Boolean,
@@ -210,10 +210,10 @@ export default {
 
 <style scoped lang="scss">
 .process-panel__container {
-  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 2px;
   padding: 0 8px;
-  border-left: 1px solid #eeeeee;
-  box-shadow: 0 0 8px #cccccc;
+  border: 1px solid #eeeeee;
   max-height: 100%;
   overflow-y: scroll;
 }
