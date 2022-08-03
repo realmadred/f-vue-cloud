@@ -62,7 +62,7 @@ export default {
 .login-container {
 	width: 100%;
 	height: 100%;
-	background: url("https://h2.ioliu.cn/bing/FinancialTowers_ZH-CN6494148642_1920x1080.jpg?imageslim")
+	background: url("/public/back.jpg")
 		no-repeat;
 	background-size: 100% 100%;
 	.login-logo {

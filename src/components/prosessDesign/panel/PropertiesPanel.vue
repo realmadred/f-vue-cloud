@@ -13,7 +13,7 @@
       <el-collapse-item name="condition" v-if="elementType === 'Process'" key="message">
        <template #title>
           <el-icon>
-            <elementChatDotRound />
+            <elementComment />
           </el-icon> 消息与信号
         </template>
         <signal-and-massage />
@@ -23,15 +23,27 @@
         <flow-condition :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="condition" v-if="formVisible" key="form">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-order"></i>表单</div>
+        <template #title>
+          <el-icon>
+            <elementList />
+          </el-icon> 表单
+        </template>
         <element-form :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="task" v-if="elementType.indexOf('Task') !== -1" key="task">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-claim"></i>任务</div>
+        <template #title>
+          <el-icon>
+            <elementPlatform />
+          </el-icon> 任务
+        </template>
         <element-task :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="multiInstance" v-if="elementType.indexOf('Task') !== -1" key="multiInstance">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-s-help"></i>多实例</div>
+        <template #title>
+          <el-icon>
+            <elementCirclePlusFilled />
+          </el-icon> 多实例
+        </template>
         <element-multi-instance :business-object="elementBusinessObject" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="listeners" key="listeners">
@@ -43,7 +55,11 @@
         <element-listeners :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="taskListeners" v-if="elementType === 'UserTask'" key="taskListeners">
-        <div slot="title" class="panel-tab__title"><i class="el-icon-message-solid"></i>任务监听器</div>
+        <template #title>
+          <el-icon>
+            <elementOpportunity />
+          </el-icon> 任务监听器
+        </template>
         <user-task-listeners :id="elementId" :type="elementType" />
       </el-collapse-item>
       <el-collapse-item name="extensions" key="extensions">
@@ -210,7 +226,6 @@ export default {
 
 <style scoped lang="scss">
 .process-panel__container {
-  margin-top: 5px;
   margin-bottom: 2px;
   padding: 0 8px;
   border: 1px solid #eeeeee;

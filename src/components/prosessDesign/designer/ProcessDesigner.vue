@@ -3,8 +3,10 @@
     <div class="my-process-designer__header">
       <slot name="control-header"></slot>
       <template v-if="!$slots['control-header']">
+
         <el-button-group key="file-control">
-          <el-button :size="headerButtonSize" :type="headerButtonType" @click="$refs.refFile.click()">
+          <el-button :size="headerButtonSize" :type="headerButtonType"
+            @click="$refs.refFile.click()">
             <el-icon>
               <elementFolderAdd />
             </el-icon>打开文件
@@ -24,7 +26,7 @@
             </template>
           </el-dropdown>
           <el-dropdown>
-            <el-button type="primary" :size="headerButtonSize">
+            <el-button style="margin-left: -1px;" type="primary" :size="headerButtonSize">
               预览<el-icon>
                 <elementView />
               </el-icon>
@@ -37,14 +39,16 @@
             </template>
           </el-dropdown>
           <el-tooltip v-if="simulation" effect="light" :content="this.simulationStatus ? '退出模拟' : '开启模拟'">
-            <el-button :size="headerButtonSize" :type="headerButtonType" @click="processSimulation">
+            <el-button :size="headerButtonSize" :type="headerButtonType"
+              @click="processSimulation">
               <el-icon>
-                <elementPrinter />
+                <elementCpu />
               </el-icon>
               模拟
             </el-button>
           </el-tooltip>
         </el-button-group>
+
         <el-button-group key="align-control">
           <el-tooltip effect="light" content="向左对齐">
             <el-button :size="headerButtonSize" class="fa fa-align-left" @click="elementsAlign('left')" />
@@ -82,7 +86,8 @@
               </el-icon>
             </el-button>
           </el-tooltip>
-          <el-button :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%" }}</el-button>
+          <el-button style="min-height: 30px;" :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%"
+          }}</el-button>
           <el-tooltip effect="light" content="放大视图">
             <el-button class="fa" :size="headerButtonSize" :disabled="defaultZoom > 4" @click="processZoomIn()">
               <el-icon>
@@ -217,6 +222,7 @@ export default {
   },
   computed: {
     additionalModules() {
+      console.log('additionalModules')
       const Modules = [];
       // 仅保留用户自定义扩展模块
       if (this.onlyCustomizeAddi) {
@@ -244,19 +250,9 @@ export default {
         Modules.push(tokenSimulation);
       }
 
-      // 根据需要的流程类型设置扩展元素构建模块
-      // if (this.prefix === "bpmn") {
-      //   Modules.push(bpmnModdleExtension);
-      // }
-      // if (this.prefix === "camunda") {
-      //   Modules.push(camundaModdleExtension);
-      // }
       if (this.prefix === "flowable") {
-        Modules.push(flowableModdleExtension);
+        // Modules.push(flowableModdleExtension);
       }
-      // if (this.prefix === "activiti") {
-      //   Modules.push(activitiModdleExtension);
-      // }
 
       return Modules;
     },
@@ -301,7 +297,7 @@ export default {
       this.bpmnModeler = new BpmnModeler({
         container: this.$refs["bpmn-canvas"],
         keyboard: this.keyboard ? { bindTo: document } : null,
-        // additionalModules: this.additionalModules,
+        additionalModules: this.additionalModules,
         moddleExtensions: this.moddleExtensions,
         ...this.options
       });
@@ -512,5 +508,10 @@ export default {
 };
 </script>
 
-<style scope>
+<style scope lang="scss">
+.el-button-group {
+  .el-button {
+    border-radius: 0;
+  }
+}
 </style>

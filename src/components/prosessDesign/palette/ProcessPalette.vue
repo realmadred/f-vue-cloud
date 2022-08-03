@@ -1,6 +1,6 @@
 <template>
   <div class="my-process-palette">
-    <p>简易palette</p>
+    <p style="margin-bottom: 5px;">简易palette</p>
     <el-collapse>
       <el-collapse-item title="任务" name="1">
         <!--  可以简化。。。 -->
@@ -89,8 +89,9 @@ export default {
 
 <style scoped lang="scss">
 .my-process-palette {
-  padding: 8px;
-  width: 120px;
+  padding-top: 5px;
+  padding-right: 5px;
+  width: 132px;
   .custom-button {
     box-sizing: border-box;
     padding: 4px 8px;

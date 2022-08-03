@@ -14,7 +14,7 @@
       class="process-panel" />
 <!-- demo config -->
     <el-button @click="controlDrawerVisible = true" type="primary" size="small" style="position:absolute;bottom: 20px;right: 20px;">偏好设置</el-button>
-    <el-drawer v-model="controlDrawerVisible" size="400px" title="偏好设置" append-to-body destroy-on-close>
+    <el-drawer v-model="controlDrawerVisible" size="410px" title="偏好设置" append-to-body destroy-on-close>
       <el-form :model="controlForm" size="small" label-width="100px" class="control-form" @submit.native.prevent>
         <el-form-item label="流程ID">
           <el-input v-model="controlForm.processId" @change="reloadProcessDesigner(true)" />
@@ -48,7 +48,9 @@
             <el-radio label="medium">medium</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-switch v-model="pageMode" active-text="dark" inactive-text="light" @change="changePageMode"></el-switch>
+        <el-form-item label="主题">
+          <el-switch v-model="pageMode" active-text="dark" inactive-text="light" @change="changePageMode"></el-switch>
+        </el-form-item>
       </el-form>
     </el-drawer>
   </div>
