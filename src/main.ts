@@ -11,6 +11,11 @@ import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
+
+import 'highlight.js/styles/atom-one-dark.css'
+import 'highlight.js/lib/common'
+import hljsVuePlugin from '@highlightjs/vue-plugin'
+
 import 'element-plus/dist/index.css';
 import '/@/theme/index.scss';
 import mitt from 'mitt';
@@ -29,6 +34,7 @@ app
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })
 	.use(VueGridLayout)
+	.use(hljsVuePlugin)
 	.mount('#app');
 
 app.config.globalProperties.mittBus = mitt();

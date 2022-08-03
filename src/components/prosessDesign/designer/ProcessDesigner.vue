@@ -5,17 +5,16 @@
       <template v-if="!$slots['control-header']">
 
         <el-button-group key="file-control">
-          <el-button :size="headerButtonSize" :type="headerButtonType"
-            @click="$refs.refFile.click()">
+          <el-button :size="headerButtonSize" :type="headerButtonType" @click="$refs.refFile.click()">
             <el-icon>
-              <elementFolderAdd />
-            </el-icon>打开文件
+              <elementUpload />
+            </el-icon>导入
           </el-button>
-          <el-dropdown>
+          <el-dropdown :size="headerButtonSize">
             <el-button type="primary" :size="headerButtonSize">
-              下载文件<el-icon>
+              <el-icon>
                 <elementDownload />
-              </el-icon>
+              </el-icon>下载
             </el-button>
             <template #dropdown>
               <el-dropdown-menu>
@@ -25,11 +24,11 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <el-dropdown>
+          <el-dropdown :size="headerButtonSize">
             <el-button style="margin-left: -1px;" type="primary" :size="headerButtonSize">
-              预览<el-icon>
+              <el-icon>
                 <elementView />
-              </el-icon>
+              </el-icon>预览
             </el-button>
             <template #dropdown>
               <el-dropdown-menu>
@@ -38,15 +37,9 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <el-tooltip v-if="simulation" effect="light" :content="this.simulationStatus ? '退出模拟' : '开启模拟'">
-            <el-button :size="headerButtonSize" :type="headerButtonType"
-              @click="processSimulation">
-              <el-icon>
-                <elementCpu />
-              </el-icon>
-              模拟
-            </el-button>
-          </el-tooltip>
+          <el-button @click="save" type="primary" :size="headerButtonSize"><el-icon>
+                <elementCollection />
+              </el-icon>保存</el-button>
         </el-button-group>
 
         <el-button-group key="align-control">
@@ -126,6 +119,9 @@
             </el-button>
           </el-tooltip>
         </el-button-group>
+        <el-button-group v-if="simulation">
+          <el-switch v-model="simulationStatus" @change="processSimulation" active-text="模拟" />
+        </el-button-group>
       </template>
       <!-- 用于打开本地文件-->
       <input type="file" id="files" ref="refFile" style="display: none" accept=".xml, .bpmn"
@@ -135,13 +131,12 @@
       <div class="my-process-designer__canvas" ref="bpmn-canvas"></div>
     </div>
     <el-dialog title="预览" width="60%" v-model="previewModelVisible" append-to-body destroy-on-close>
-      <hljs :language="previewType" :code="previewResult" />
+      <highlightjs :language="previewType" :code="previewResult" />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import hljs from "../highlight";
 import "highlight.js/styles/atom-one-dark-reasonable.css";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import DefaultEmptyXML from "./plugins/defaultEmpty";
@@ -161,7 +156,7 @@ import X2JS from "x2js";
 
 export default {
   name: "MyProcessDesigner",
-  components: { hljs },
+  components: {},
   componentName: "MyProcessDesigner",
   props: {
     value: String, // xml 字符串
@@ -392,6 +387,28 @@ export default {
       }
     },
 
+    // 保存流程图到服务器
+    async save() {
+      try {
+        // xml
+          const { err, xml } = await this.bpmnModeler.saveXML();
+          // 读取异常时抛出异常
+          if (err) {
+            console.error(`[Process Designer Warn ]: ${err.message || err}`);
+          }
+          console.log('xml',xml)
+          // svg
+          const { errSvg, svg } = await this.bpmnModeler.saveSVG();
+          // 读取异常时抛出异常
+          if (errSvg) {
+            return console.error(errSvg);
+          }
+          console.log('svg',svg)
+      } catch (e) {
+        console.error(`[Process Designer Warn ]: ${e.message || e}`);
+      }
+    },
+
     // 根据所需类型进行转码并返回下载地址
     setEncoded(type, filename = "diagram", data) {
       const encodedData = encodeURIComponent(data);
@@ -424,7 +441,6 @@ export default {
       this.downloadProcess("svg");
     },
     processSimulation() {
-      this.simulationStatus = !this.simulationStatus;
       this.simulation && this.bpmnModeler.get("toggleMode").toggleMode();
     },
     processRedo() {
