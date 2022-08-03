@@ -2,7 +2,7 @@
 	"name": "f-vue-admin",
 	"version": "1.2.0",
 	"description": "vue3 vite next admin template",
-	"author": "lyt_20201208",
+	"author": "liufeng",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite --force",
@@ -10,9 +10,9 @@
 		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/"
 	},
 	"dependencies": {
-		"@element-plus/icons-vue": "^0.2.4",
+		"@element-plus/icons-vue": "^2.0.6",
 		"@highlightjs/vue-plugin": "^2.1.0",
-		"axios": "^0.24.0",
+		"axios": "^0.27.2",
 		"bpmn-js-sketchy": "^0.5.3",
 		"bpmn-js-task-resize": "^1.2.0",
 		"bpmn-js-token-simulation": "^0.10.0",
@@ -23,7 +23,7 @@
 		"echarts": "^5.2.2",
 		"echarts-gl": "^2.0.8",
 		"echarts-wordcloud": "^2.0.0",
-		"element-plus": "^1.2.0-beta.6",
+		"element-plus": "^2.2.12",
 		"highlight.js": "^11.6.0",
 		"jsencrypt": "^3.2.1",
 		"jsplumb": "^2.15.6",
