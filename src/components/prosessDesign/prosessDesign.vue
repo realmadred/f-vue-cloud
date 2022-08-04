@@ -43,9 +43,10 @@
         </el-form-item>
         <el-form-item label="工具栏">
           <el-radio-group v-model="controlForm.headerButtonSize">
-            <el-radio label="mini">mini</el-radio>
+            <el-radio label="default">default</el-radio>
             <el-radio label="small">small</el-radio>
             <el-radio label="medium">medium</el-radio>
+            <el-radio label="large">large</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="主题">
@@ -105,7 +106,7 @@ export default {
         labelEditing: false,
         labelVisible: false,
         prefix: "flowable",
-        headerButtonSize: "mini",
+        headerButtonSize: "small",
         events: ["element.click", "element.contextmenu"],
         // additionalModel: []
         moddleExtension: { user: UserSql },

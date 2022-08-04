@@ -79,7 +79,7 @@
               </el-icon>
             </el-button>
           </el-tooltip>
-          <el-button style="min-height: 30px;" :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%"
+          <el-button :size="headerButtonSize">{{ Math.floor(this.defaultZoom * 10 * 10) + "%"
           }}</el-button>
           <el-tooltip effect="light" content="放大视图">
             <el-button class="fa" :size="headerButtonSize" :disabled="defaultZoom > 4" @click="processZoomIn()">
@@ -196,7 +196,7 @@ export default {
     headerButtonSize: {
       type: String,
       default: "small",
-      validator: value => ["default", "medium", "small", "mini"].indexOf(value) !== -1
+      validator: value => ["default", "medium", "small", "large"].indexOf(value) !== -1
     },
     headerButtonType: {
       type: String,
