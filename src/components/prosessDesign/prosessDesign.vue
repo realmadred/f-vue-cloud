@@ -13,9 +13,11 @@
     <my-properties-panel :key="`penal-${reloadIndex}`" :bpmn-modeler="modeler" :prefix="controlForm.prefix"
       class="process-panel" />
 <!-- demo config -->
-    <el-button @click="controlDrawerVisible = true" type="primary" size="small" style="position:absolute;bottom: 20px;right: 20px;">设 置</el-button>
+    <el-button @click="controlDrawerVisible = true" type="primary" style="position:absolute;bottom: 20px;right: 20px;" circle>
+      <el-icon><elementSetting /></el-icon>
+    </el-button>
     <el-drawer v-model="controlDrawerVisible" size="410px" title="设置">
-      <el-form :model="controlForm" size="small" label-width="100px" class="control-form" @submit.native.prevent>
+      <el-form :model="controlForm" style="margin-top: 15px;margin-right: 15px;" label-width="100px" class="control-form" @submit.native.prevent>
         <el-form-item label="流程ID">
           <el-input v-model="controlForm.processId" @change="reloadProcessDesigner(true)" />
         </el-form-item>

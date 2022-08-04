@@ -1,6 +1,6 @@
 <template>
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
-    <el-collapse v-model="activeTab">
+    <el-collapse v-model="activeTab" accordion>
       <el-collapse-item name="base">
         <template #title>
           <el-icon>
@@ -230,7 +230,6 @@ export default {
   padding: 0 8px;
   border: 1px solid #eeeeee;
   max-height: 100%;
-  overflow-y: scroll;
 }
 
 .panel-tab__title {
