@@ -92,6 +92,9 @@ export default {
   padding-top: 5px;
   padding-right: 5px;
   width: 132px;
+  border-top: solid 1px #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  overflow-y: scroll;
   .custom-button {
     box-sizing: border-box;
     padding: 4px 8px;

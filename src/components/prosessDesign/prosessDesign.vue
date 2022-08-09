@@ -12,18 +12,11 @@
     </my-process-designer>
     <my-properties-panel :key="`penal-${reloadIndex}`" :bpmn-modeler="modeler" :prefix="controlForm.prefix"
       class="process-panel" />
-<!-- demo config -->
     <el-button @click="controlDrawerVisible = true" type="primary" style="position:absolute;bottom: 20px;right: 20px;" circle>
       <el-icon><elementSetting /></el-icon>
     </el-button>
     <el-drawer v-model="controlDrawerVisible" size="410px" title="设置">
       <el-form :model="controlForm" style="margin-top: 15px;margin-right: 15px;" label-width="100px" class="control-form" @submit.native.prevent>
-        <el-form-item label="流程ID">
-          <el-input v-model="controlForm.processId" @change="reloadProcessDesigner(true)" />
-        </el-form-item>
-        <el-form-item label="流程名称">
-          <el-input v-model="controlForm.processName" @change="reloadProcessDesigner(true)" />
-        </el-form-item>
         <el-form-item label="流转模拟">
           <el-switch v-model="controlForm.simulation" inactive-text="停用" active-text="启用"
             @change="reloadProcessDesigner()" />
@@ -36,19 +29,18 @@
           <el-switch v-model="controlForm.labelVisible" inactive-text="停用" active-text="启用"
             @change="changeLabelVisibleStatus" />
         </el-form-item>
-        <el-form-item label="流程引擎">
+        <!-- <el-form-item label="流程引擎">
           <el-radio-group v-model="controlForm.prefix" @change="reloadProcessDesigner()">
             <el-radio label="camunda">camunda</el-radio>
             <el-radio label="flowable">flowable</el-radio>
             <el-radio label="activiti">activiti</el-radio>
           </el-radio-group>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="工具栏">
           <el-radio-group v-model="controlForm.headerButtonSize">
-            <el-radio label="default">default</el-radio>
-            <el-radio label="small">small</el-radio>
-            <el-radio label="medium">medium</el-radio>
-            <el-radio label="large">large</el-radio>
+            <el-radio-button label="small">small</el-radio-button>
+            <el-radio-button label="default">default</el-radio-button>
+            <el-radio-button label="large">large</el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="主题">

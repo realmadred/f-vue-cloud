@@ -37,9 +37,11 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <el-button @click="save" type="primary" :size="headerButtonSize"><el-icon>
-                <elementCollection />
-              </el-icon>保存</el-button>
+          <el-button @click="save" type="primary" :size="headerButtonSize">
+            <el-icon>
+              <elementCollection />
+            </el-icon>保存
+          </el-button>
         </el-button-group>
 
         <el-button-group key="align-control">
@@ -120,7 +122,7 @@
           </el-tooltip>
         </el-button-group>
         <el-button-group v-if="simulation">
-          <el-switch v-model="simulationStatus" @change="processSimulation" active-text="模拟" />
+          <el-switch :size="headerButtonSize" v-model="simulationStatus" @change="processSimulation" active-text="模拟" />
         </el-button-group>
       </template>
       <!-- 用于打开本地文件-->
@@ -391,19 +393,19 @@ export default {
     async save() {
       try {
         // xml
-          const { err, xml } = await this.bpmnModeler.saveXML();
-          // 读取异常时抛出异常
-          if (err) {
-            console.error(`[Process Designer Warn ]: ${err.message || err}`);
-          }
-          console.log('xml',xml)
-          // svg
-          const { errSvg, svg } = await this.bpmnModeler.saveSVG();
-          // 读取异常时抛出异常
-          if (errSvg) {
-            return console.error(errSvg);
-          }
-          console.log('svg',svg)
+        const { err, xml } = await this.bpmnModeler.saveXML();
+        // 读取异常时抛出异常
+        if (err) {
+          console.error(`[Process Designer Warn ]: ${err.message || err}`);
+        }
+        console.log('xml', xml)
+        // svg
+        const { errSvg, svg } = await this.bpmnModeler.saveSVG();
+        // 读取异常时抛出异常
+        if (errSvg) {
+          return console.error(errSvg);
+        }
+        console.log('svg', svg)
       } catch (e) {
         console.error(`[Process Designer Warn ]: ${e.message || e}`);
       }
@@ -529,5 +531,10 @@ export default {
   .el-button {
     border-radius: 0;
   }
+}
+
+.my-process-designer__header {
+  border-top: 1px solid #eee;
+  padding-top: 5px;
 }
 </style>

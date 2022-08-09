@@ -203,6 +203,7 @@ export default defineComponent({
 		animation-name: error-num;
 		animation-duration: 0.5s;
 		animation-fill-mode: forwards;
+		margin-top: 10px;
 	}
 
 	.login-animation-one {
@@ -270,6 +271,9 @@ export default defineComponent({
 		letter-spacing: 2px;
 		font-weight: 300;
 		margin-top: 15px;
+	}
+	.el-button--small{
+		padding: 0;
 	}
 }
 </style>

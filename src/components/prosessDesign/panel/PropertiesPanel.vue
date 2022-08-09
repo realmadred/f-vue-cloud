@@ -1,6 +1,6 @@
 <template>
   <div class="process-panel__container" :style="{ width: `${this.width}px` }">
-    <el-collapse v-model="activeTab" accordion>
+    <el-collapse v-model="activeTab" accordion style="border: none;">
       <el-collapse-item name="base">
         <template #title>
           <el-icon>

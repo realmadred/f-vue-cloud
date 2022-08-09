@@ -79,7 +79,7 @@ export default {
 		transform: translateX(-50%);
 	}
 	.login-content {
-		width: 400px;
+		width: 380px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
