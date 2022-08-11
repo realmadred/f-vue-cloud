@@ -15,6 +15,10 @@
 .el-button--text:active {
 	color: set-color(primary-light-3);
 }
+
+.el-button+.el-button--text {
+    margin-left: 0;
+}
 // default
 .el-button--default:hover,
 .el-button--default:focus {

@@ -1,7 +1,7 @@
 <template>
 	<el-form class="login-content-form">
 		<el-form-item class="login-animation-one">
-			<el-input type="text" :placeholder="$t('message.mobile.placeholder1')" v-model="ruleForm.userName" clearable autocomplete="off">
+			<el-input type="primary" link :placeholder="$t('message.mobile.placeholder1')" v-model="ruleForm.userName" clearable autocomplete="off">
 				<template #prefix>
 					<i class="iconfont icon-dianhua el-input__icon"></i>
 				</template>
@@ -10,7 +10,7 @@
 		<el-form-item class="login-animation-two">
 			<el-row :gutter="15">
 				<el-col :span="16">
-					<el-input type="text" maxlength="4" :placeholder="$t('message.mobile.placeholder2')" v-model="ruleForm.code" clearable autocomplete="off">
+					<el-input type="primary" link maxlength="4" :placeholder="$t('message.mobile.placeholder2')" v-model="ruleForm.code" clearable autocomplete="off">
 						<template #prefix>
 							<el-icon class="el-input__icon"><elementPosition /></el-icon>
 						</template>
@@ -27,8 +27,8 @@
 			</el-button>
 		</el-form-item>
 		<el-form-item class="login-animation-four">
-			<el-button type="text" size="small">{{ $t('message.link.one3') }}</el-button>
-			<el-button type="text" size="small">{{ $t('message.link.two4') }}</el-button>
+			<el-button type="primary" link size="small">{{ $t('message.link.one3') }}</el-button>
+			<el-button type="primary" link size="small">{{ $t('message.link.two4') }}</el-button>
 		</el-form-item>
 	</el-form>
 </template>

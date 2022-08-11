@@ -21,16 +21,14 @@
 				</el-button>
 			</div>
 			<el-table :data="tableData.data" style="width: 100%">
-				<el-table-column type="index" label="序号" width="50" />
+				<el-table-column type="index" label="序号" width="60" />
 				                    <el-table-column prop="flowId" label="流程id" />
                     <el-table-column prop="name" label="流程名称" />
-                    <el-table-column prop="xml" label="xml" />
-                    <el-table-column prop="svg" label="svg" />
                 				<el-table-column prop="createTime" label="创建时间" />
-				<el-table-column label="操作" width="100">
+				<el-table-column label="操作" width="120">
 					<template #default="scope">
-						<el-button size="mini" type="text" @click="onOpenEdit(scope.row)">修改</el-button>
-						<el-button size="mini" type="text" @click="onRowDel(scope.row)">删除</el-button>
+						<el-button size="small" type="primary" link  @click="onOpenEdit(scope.row)">修改</el-button>
+						<el-button size="small" type="primary" link @click="onRowDel(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>

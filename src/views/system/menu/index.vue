@@ -48,20 +48,20 @@
 						<el-button
 							v-auth="'/sysMenu/post'"
 							v-if="scope.row.type === 1"
-							size="mini"
-							type="text"
+							size="small"
+							type="primary" link
 							@click="onOpenAddMenu(scope.row)"
 						>新增</el-button>
 						<el-button
 							v-auth="'/sysMenu/put'"
-							size="mini"
-							type="text"
+							size="small"
+							type="primary" link
 							@click="onOpenEditMenu(scope.row)"
 						>修改</el-button>
 						<el-button
 							v-auth="'/sysMenu/delete'"
-							size="mini"
-							type="text"
+							size="small"
+							type="primary" link
 							@click="onTabelRowDel(scope.row)"
 						>删除</el-button>
 					</template>

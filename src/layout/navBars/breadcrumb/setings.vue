@@ -149,7 +149,7 @@
 							:min="1"
 							:max="9999"
 							@change="setLocalThemeConfig"
-							size="mini"
+							size="small"
 							style="width: 90px"
 						>
 						</el-input-number>
@@ -246,7 +246,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt14">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourWartermarkText') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-input v-model="getThemeConfig.wartermarkText" size="mini" style="width: 90px" @input="onWartermarkTextInput($event)"></el-input>
+						<el-input v-model="getThemeConfig.wartermarkText" size="small" style="width: 90px" @input="onWartermarkTextInput($event)"></el-input>
 					</div>
 				</div>
 
@@ -255,7 +255,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt15">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveTagsStyle') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="mini" style="width: 90px" @change="setLocalThemeConfig">
+						<el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="small" style="width: 90px" @change="setLocalThemeConfig">
 							<el-option label="风格1" value="tags-style-one"></el-option>
 							<el-option label="风格2" value="tags-style-two"></el-option>
 							<el-option label="风格3" value="tags-style-three"></el-option>
@@ -266,7 +266,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt15">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveAnimation') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-select v-model="getThemeConfig.animation" placeholder="请选择" size="mini" style="width: 90px" @change="setLocalThemeConfig">
+						<el-select v-model="getThemeConfig.animation" placeholder="请选择" size="small" style="width: 90px" @change="setLocalThemeConfig">
 							<el-option label="slide-right" value="slide-right"></el-option>
 							<el-option label="slide-left" value="slide-left"></el-option>
 							<el-option label="opacitys" value="opacitys"></el-option>
@@ -276,7 +276,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt15">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideStyle') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="mini" style="width: 90px" @change="setLocalThemeConfig">
+						<el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="small" style="width: 90px" @change="setLocalThemeConfig">
 							<el-option label="圆角" value="columns-round"></el-option>
 							<el-option label="卡片" value="columns-card"></el-option>
 						</el-select>
@@ -285,7 +285,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt15 mb27">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveColumnsAsideLayout') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="mini" style="width: 90px" @change="setLocalThemeConfig">
+						<el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="small" style="width: 90px" @change="setLocalThemeConfig">
 							<el-option label="水平" value="columns-horizontal"></el-option>
 							<el-option label="垂直" value="columns-vertical"></el-option>
 						</el-select>

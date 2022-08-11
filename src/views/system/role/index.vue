@@ -27,12 +27,12 @@
 				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
 				<el-table-column label="操作" width="150">
 					<template #default="scope">
-						<el-button v-auth="'/sysRole/put'" size="mini" type="text" @click="onOpenEditRole(scope.row)">修改</el-button>
-						<el-button v-auth="'/sysRole/put'" size="mini" type="text" @click="onOpenRoleMenu(scope.row)">菜单</el-button>
+						<el-button v-auth="'/sysRole/put'" size="small" type="primary" link @click="onOpenEditRole(scope.row)">修改</el-button>
+						<el-button v-auth="'/sysRole/put'" size="small" type="primary" link @click="onOpenRoleMenu(scope.row)">菜单</el-button>
 						<el-button v-auth="'/sysRole/delete'"
 							:disabled="scope.row.name === '超级管理员'"
-							size="mini"
-							type="text"
+							size="small"
+							type="primary" link
 							@click="onRowDel(scope.row)"
 						>删除</el-button>
 					</template>

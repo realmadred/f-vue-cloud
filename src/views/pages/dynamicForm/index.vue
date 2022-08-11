@@ -63,12 +63,12 @@
 								<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6" class="mb20">
 									<el-form-item label="年度" :prop="`list[${k}].year`" :rules="[{ required: true, message: `年度不能为空`, trigger: 'blur' }]">
 										<template #label>
-											<el-button type="primary" circle size="mini" @click="onAddRow" v-if="k === 0">
+											<el-button type="primary" circle size="small" @click="onAddRow" v-if="k === 0">
 												<el-icon>
 													<elementPlus />
 												</el-icon>
 											</el-button>
-											<el-button type="danger" circle size="mini" @click="onDelRow(k)" v-else>
+											<el-button type="danger" circle size="small" @click="onDelRow(k)" v-else>
 												<el-icon>
 													<elementDelete />
 												</el-icon>

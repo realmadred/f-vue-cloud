@@ -89,7 +89,7 @@ export default {
 		dropdownDefault: '默認',
 		dropdownMedium: '中等',
 		dropdownSmall: '小型',
-		dropdownMini: '超小',
+		dropdownLarge: '大型',
 		dropdown1: '首頁',
 		dropdown2: '個人中心',
 		dropdown3: '404',

@@ -162,6 +162,7 @@ export default {
   componentName: "MyProcessDesigner",
   props: {
     value: String, // xml 字符串
+    xml: String,
     processId: String,
     processName: String,
     translations: Object, // 自定义的翻译文件
@@ -276,7 +277,7 @@ export default {
   },
   mounted() {
     this.initBpmnModeler();
-    this.createNewDiagram(this.value);
+    this.createNewDiagram(this.value || this.xml);
     // this.$once("hook:beforeDestroy", () => {
     //   if (this.bpmnModeler) this.bpmnModeler.destroy();
     //   this.$emit("destroy", this.bpmnModeler);
@@ -398,14 +399,14 @@ export default {
         if (err) {
           console.error(`[Process Designer Warn ]: ${err.message || err}`);
         }
-        console.log('xml', xml)
         // svg
         const { errSvg, svg } = await this.bpmnModeler.saveSVG();
         // 读取异常时抛出异常
         if (errSvg) {
           return console.error(errSvg);
         }
-        console.log('svg', svg)
+        const rootElement = this.bpmnModeler.get("canvas").getRootElement();
+        this.$emit('bpmn-save', { flowId: rootElement.businessObject.id, name: rootElement.businessObject.name, xml, svg })
       } catch (e) {
         console.error(`[Process Designer Warn ]: ${e.message || e}`);
       }

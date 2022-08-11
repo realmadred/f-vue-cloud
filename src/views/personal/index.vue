@@ -139,7 +139,7 @@
 								<div class="personal-edit-safe-item-left-value">当前密码强度：强</div>
 							</div>
 							<div class="personal-edit-safe-item-right">
-								<el-button type="text">立即修改</el-button>
+								<el-button type="primary" link>立即修改</el-button>
 							</div>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 								<div class="personal-edit-safe-item-left-value">已绑定手机：{{ getUserInfos.phone }}</div>
 							</div>
 							<div class="personal-edit-safe-item-right">
-								<el-button type="text">立即修改</el-button>
+								<el-button type="primary" link>立即修改</el-button>
 							</div>
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 								<div class="personal-edit-safe-item-left-value">已设置密保问题，账号安全大幅度提升</div>
 							</div>
 							<div class="personal-edit-safe-item-right">
-								<el-button type="text">立即设置</el-button>
+								<el-button type="primary" link>立即设置</el-button>
 							</div>
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 								<div class="personal-edit-safe-item-left-value">已绑定QQ：110****119</div>
 							</div>
 							<div class="personal-edit-safe-item-right">
-								<el-button type="text">立即设置</el-button>
+								<el-button type="primary" link>立即设置</el-button>
 							</div>
 						</div>
 					</div>

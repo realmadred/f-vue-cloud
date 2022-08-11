@@ -18,12 +18,12 @@
 							<el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" class="mb10">
 								<el-form-item :prop="`list[${k}].name`" :rules="{required: true,message: '请输入名称',trigger: 'change'}">
 									<template #label>
-										<el-button type="primary" circle size="mini" @click="onAddRow" v-if="k === 0">
+										<el-button type="primary" circle size="small" @click="onAddRow" v-if="k === 0">
 											<el-icon>
 												<elementPlus />
 											</el-icon>
 										</el-button>
-										<el-button type="danger" circle size="mini" @click="onDelRow(k)" v-else>
+										<el-button type="danger" circle size="small" @click="onDelRow(k)" v-else>
 											<el-icon>
 												<elementDelete />
 											</el-icon>

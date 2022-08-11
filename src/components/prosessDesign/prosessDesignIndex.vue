@@ -8,15 +8,19 @@
         open: true
       }
     }" v-model="xmlString" v-bind="controlForm" keyboard ref="processDesigner" @element-click="elementClick"
-      @element-contextmenu="elementContextmenu" @init-finished="initModeler">
+      @element-contextmenu="elementContextmenu" @init-finished="initModeler" @bpmn-save="save">
     </my-process-designer>
     <my-properties-panel :key="`penal-${reloadIndex}`" :bpmn-modeler="modeler" :prefix="controlForm.prefix"
-      class="process-panel" />
-    <el-button @click="controlDrawerVisible = true" type="primary" style="position:absolute;bottom: 20px;right: 20px;" circle>
-      <el-icon><elementSetting /></el-icon>
+      class="process-panel" :idEditDisabled="!controlForm.id"/>
+    <el-button @click="controlDrawerVisible = true" type="primary" style="position:absolute;bottom: 20px;right: 20px;"
+      circle>
+      <el-icon>
+        <elementSetting />
+      </el-icon>
     </el-button>
     <el-drawer v-model="controlDrawerVisible" size="410px" title="设置">
-      <el-form :model="controlForm" style="margin-top: 15px;margin-right: 15px;" label-width="100px" class="control-form" @submit.native.prevent>
+      <el-form :model="controlForm" style="margin-top: 15px;margin-right: 15px;" label-width="100px"
+        class="control-form" @submit.native.prevent>
         <el-form-item label="流转模拟">
           <el-switch v-model="controlForm.simulation" inactive-text="停用" active-text="启用"
             @change="reloadProcessDesigner()" />
@@ -62,9 +66,9 @@ import CustomContentPadProvider from "./designer/plugins/content-pad";
 import CustomPaletteProvider from "./designer/plugins/palette";
 import Log from "./Log";
 // 任务resize
-import resizeTask from "bpmn-js-task-resize/lib";
+// import resizeTask from "bpmn-js-task-resize/lib";
 // bpmn theme plugin
-import sketchyRendererModule from "bpmn-js-sketchy";
+// import sketchyRendererModule from "bpmn-js-sketchy";
 // 小地图
 import minimapModule from "diagram-js-minimap";
 
@@ -84,6 +88,13 @@ export default {
   directives: {
     clickoutside: ClickOutside
   },
+  props: {
+    // 行数据
+    row: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       xmlString: "",
@@ -94,6 +105,8 @@ export default {
       pageMode: false,
       translationsSelf: translations,
       controlForm: {
+        id: 0,
+        xml: "",
         processId: "",
         processName: "",
         simulation: true,
@@ -120,7 +133,16 @@ export default {
       }
     };
   },
-  created() { },
+  created() {
+    if (this.row) {
+      console.log('row', this.row)
+
+      this.xmlString = this.row.xml
+      this.controlForm.xml = this.row.xml
+      this.controlForm.processId = this.row.flowId
+      this.controlForm.processName = this.row.name
+    }
+  },
   methods: {
     initModeler(modeler) {
       setTimeout(() => {
@@ -177,6 +199,9 @@ export default {
       console.log(this.modeler);
       console.log(this.modeler.get("toggleMode"));
       this.modeler.get("toggleMode").toggleMode();
+    },
+    save(data) {
+      this.$emit('bpmn-save', data)
     }
   }
 };

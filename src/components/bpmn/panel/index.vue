@@ -35,8 +35,8 @@
         </template>
         <div>
           <div style="margin-bottom: 4px;">
-            <el-button type="primary" size="mini">添加</el-button>
-            <el-button type="primary" size="mini">选择</el-button>
+            <el-button type="primary" size="small">添加</el-button>
+            <el-button type="primary" size="small">选择</el-button>
           </div>
           <el-table border style="width: 100%">
             <el-table-column label="事件">
@@ -104,9 +104,9 @@
         </template>
         <div>
           <div class="collapse-item-header">
-            <el-button type="primary" size="mini" icon="el-icon-plus">添加</el-button>
-            <el-button type="primary" size="mini" icon="el-icon-edit-outline">修改</el-button>
-            <el-button type="primary" size="mini" icon="el-icon-delete">删除</el-button>
+            <el-button type="primary" size="small" icon="el-icon-plus">添加</el-button>
+            <el-button type="primary" size="small" icon="el-icon-edit-outline">修改</el-button>
+            <el-button type="primary" size="small" icon="el-icon-delete">删除</el-button>
           </div>
           <el-table border style="width: 100%">
             <el-table-column label="" width="40px">
@@ -126,8 +126,8 @@
         </template>
         <div>
           <div style="margin-bottom: 4px;">
-            <el-button type="primary" size="mini">添加</el-button>
-            <el-button type="primary" size="mini">选择</el-button>
+            <el-button type="primary" size="small">添加</el-button>
+            <el-button type="primary" size="small">选择</el-button>
           </div>
           <el-table border style="width: 100%">
             <el-table-column label="事件">

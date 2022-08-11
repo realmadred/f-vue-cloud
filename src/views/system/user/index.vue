@@ -55,20 +55,20 @@
           <template #default="scope">
             <el-button v-auth="'/sysUser/put'"
               :disabled="scope.row.isAdmin === 1"
-              size="mini"
-              type="text"
+              size="small"
+              type="primary" link
               @click="onOpenEditUser(scope.row)"
             >修改</el-button>
             <el-button v-auth="'/sysUser/put'"
               :disabled="scope.row.isAdmin === 1"
-              size="mini"
-              type="text"
+              size="small"
+              type="primary" link
               @click="onOpenUserRole(scope.row)"
             >角色</el-button>
             <el-button v-auth="'/sysUser/delete'"
               :disabled="scope.row.isAdmin === 1"
-              size="mini"
-              type="text"
+              size="small"
+              type="primary" link
               @click="onRowDel(scope.row)"
             >删除</el-button>
           </template>

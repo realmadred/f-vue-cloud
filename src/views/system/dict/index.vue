@@ -27,8 +27,8 @@
 				<el-table-column prop="createTime" label="创建时间" />
 				<el-table-column label="操作" width="100">
 					<template #default="scope">
-						<el-button size="mini" type="text" @click="onOpenEditDict(scope.row)">修改</el-button>
-						<el-button size="mini" type="text" @click="onRowDel(scope.row)">删除</el-button>
+						<el-button size="small" type="primary" link @click="onOpenEditDict(scope.row)">修改</el-button>
+						<el-button size="small" type="primary" link @click="onRowDel(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>

@@ -1,7 +1,7 @@
 <template>
 	<el-form class="login-content-form" :model="ruleForm" :rules="rules" ref="form">
 		<el-form-item class="login-animation-one" prop="userName">
-			<el-input type="text" :placeholder="$t('message.account.accountPlaceholder1')" v-model="ruleForm.userName"
+			<el-input type="primary" link :placeholder="$t('message.account.accountPlaceholder1')" v-model="ruleForm.userName"
 				clearable autocomplete="off">
 				<template #prefix>
 					<el-icon class="el-input__icon">
@@ -33,8 +33,8 @@
 			</el-button>
 		</el-form-item>
 		<el-form-item class="login-animation-five">
-			<el-button type="text" size="small">{{ $t('message.link.one3') }}</el-button>
-			<el-button type="text" size="small">{{ $t('message.link.two4') }}</el-button>
+			<el-button type="primary" link size="small">{{ $t('message.link.one3') }}</el-button>
+			<el-button type="primary" link size="small">{{ $t('message.link.two4') }}</el-button>
 		</el-form-item>
 	</el-form>
 </template>

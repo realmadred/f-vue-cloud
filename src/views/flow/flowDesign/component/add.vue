@@ -32,8 +32,8 @@
 				</span>
 			</template>
 		</el-dialog> -->
-		<el-dialog title="新增流程图" v-model="isShowDialog" :fullscreen="true">
-			<ProsessDesign/>
+		<el-dialog title="新增流程图" v-model="isShowDialog" :fullscreen="true" destroy-on-close>
+			<ProsessDesign @bpmn-save="save" />
 		</el-dialog>
 	</div>
 </template>
@@ -43,7 +43,7 @@ import { reactive, toRefs, ref } from 'vue';
 import { add, FlowDesign } from '/@/api/flow/flowDesign';
 import { submitForm } from '/@/utils/form';
 import { rule } from './rule.ts';
-import ProsessDesign from "/@/components/prosessDesign/prosessDesign.vue";
+import ProsessDesign from "/@/components/prosessDesign/prosessDesignIndex.vue";
 export default {
 	name: 'addFlowDesign',
 	components: { ProsessDesign },
@@ -76,8 +76,8 @@ export default {
 			closeDialog();
 		};
 		// 新增
-		const onSubmit = () => {
-			add(state.ruleForm).then(() => {
+		const save = (data: FlowDesign) => {
+			add(data).then(() => {
 				closeDialog();
 				success()
 			})
@@ -87,9 +87,9 @@ export default {
 			openDialog,
 			closeDialog,
 			onCancel,
-			onSubmit,
 			form,
 			submitForm,
+			save,
 			...toRefs(state),
 		};
 	},
